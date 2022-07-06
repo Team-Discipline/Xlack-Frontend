@@ -39,7 +39,7 @@ async def delete_channel_info(member_name: str):
     get_channel_info.commit()
     return{"deleted": True}
 
-"""Chats"""
+# chats
 
 class Chat(BaseModel):
     chatter: str
