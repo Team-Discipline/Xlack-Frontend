@@ -8,7 +8,8 @@ import styled from 'styled-components';
 // import {useAuthState} from "react-firebase-hooks/auth";
 // import {auth} from "./firebase";
 import Login from './components/Login';
-import Workspace from './pages/Workspace';
+import Main from './pages/main';
+
 // import Spinner from "react-spinkit";
 
 function App() {
@@ -32,7 +33,7 @@ function App() {
     //   </AppLoading>
     // )
 
-   
+
 
   return (
     <div className="App">
@@ -43,12 +44,11 @@ function App() {
           <>
             
               <AppBody>
-              <Workspace/>
+              
                 <Routes>
-                  <Route path="/" >
-                    {/* <Chat></Chat>> */}
-                    
-                  </Route>
+                  
+                  <Route path="/" element={<Main/>} />
+
                 </Routes>
               </AppBody>
             

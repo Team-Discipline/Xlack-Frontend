@@ -15,10 +15,11 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
 import { useState } from 'react';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useSelector ,useDispatch} from 'react-redux';
 import Addchannel from './Addchannel';
 import { RootState } from '../app/store';
-
+import { createRoom } from '../features/AddChannelSlice';
+import {Channel} from './types';
 function Sidebar(){
 
     // const channelId=useSelector(state => {
@@ -26,10 +27,18 @@ function Sidebar(){
     // })
     const [showChannels,setshowChannels]=useState(false);
     const AddChannel=useSelector((state:RootState)=>state.AddChannel.title);
-    // const [ChannelList,setChannelList]=useState([]);
-    // const list=axios.get('https://xlack.kreimben.com/api/channel/all')
-    // .then(res=>console.log(res))
-    // .catch(err=>console.log(err));
+    // const dispatch =useDispatch()
+
+    // const showChannelList =async()=>{
+    //     const list: Channel[]=await axios.get(`https://xlack.kreimben.com/api/channel/all`)
+    //     .then(res=>console.log(res))
+    //     .catch(err=>console.log(err));
+
+    //    //dispatch(createRoom(list))
+       
+       
+    // }
+
     const onClickshowChannels=useCallback(()=>{
         setshowChannels((prev)=>!prev);
     },[]);
