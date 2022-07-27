@@ -2,7 +2,7 @@
 import React from "react";
 import axios from 'axios';
 import { useDispatch } from "react-redux";
-import { createRoom } from "../features/AddChannelSlice";
+import { addRoom } from "../features/AddChannelSlice";
 import { SidebarInfo } from "./SidebarOption";
 import { AppDispatch } from "../app/store";
 
@@ -17,7 +17,7 @@ function Addchannel({Icon,title,id}:SidebarInfo){
             
             if(channelName){
                 // db에 name: channelName 방추가
-                dispatch(createRoom(channelName))
+                dispatch(addRoom(channelName))
                 await axios.post(`https://xlack.kreimben.com/api/channel/?channel_name=${channelName}`,{
                     channel_name:{channelName}
                 },{

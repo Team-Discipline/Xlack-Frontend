@@ -18,7 +18,7 @@ import axios from 'axios';
 import { useSelector ,useDispatch} from 'react-redux';
 import Addchannel from './Addchannel';
 import { RootState } from '../app/store';
-import { createRoom } from '../features/AddChannelSlice';
+import { addRoom } from '../features/AddChannelSlice';
 import {Channel} from './types';
 function Sidebar(){
 

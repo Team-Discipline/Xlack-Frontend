@@ -9,14 +9,14 @@ export const AddChannelSlice=createSlice({
         title:['test'],
     },
     reducers:{
-        createRoom: (state,action: PayloadAction<string>)=>{
+        addRoom: (state,action: PayloadAction<string>)=>{
            state.title.push(action.payload)
         },
         
     },
 });
 
-export const {createRoom} = AddChannelSlice.actions;
+export const {addRoom} = AddChannelSlice.actions;
 
 
 export default AddChannelSlice.reducer;
