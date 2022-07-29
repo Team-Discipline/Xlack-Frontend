@@ -21,7 +21,9 @@ function Addchannel({Icon,title,id}:SidebarInfo){
                 await axios.post(`https://xlack.kreimben.com/api/channel/?channel_name=${channelName}`,{
                     channel_name:{channelName}
                 },{
-                   withCredentials:true, //쿠키 생성
+                    headers:{
+                        //토큰
+                    }
                 }
                 )
                 

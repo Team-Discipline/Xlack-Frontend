@@ -1,22 +1,22 @@
 export interface Channel{
-    channel_name?:string 
+    "channel_name"?:string 
     
     // title: Channel Name
 
-    uuid :string
+    "uuid" :string
     // title: Uuid
-    channel_id:number
+    "channel_id":number
     // title: Channel Id
 
-    created_at:string
+    "created_at":string
     // title: Created At
      
 }
 
 export interface ChatInfo{
-    channelName:string;
-    channelId:number;
-    chatRef:any;
+    "channelName":string;
+    "channelId":number;
+    "chatRef":any;
 }
 
 export interface MessageRec{

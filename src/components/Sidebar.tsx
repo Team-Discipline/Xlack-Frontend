@@ -1,4 +1,4 @@
-import React, { useCallback } from'react';
+import React, { useCallback, useEffect } from'react';
 import styled from 'styled-components';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import CreateIcon from '@mui/icons-material/Create';
@@ -28,16 +28,29 @@ function Sidebar(){
     const [showChannels,setshowChannels]=useState(false);
     const AddChannel=useSelector((state:RootState)=>state.AddChannel.title);
     // const dispatch =useDispatch()
+    const [ChannelList,setChannelList]=useState([]);// 기존에 가입되어있던 채널들 정보
 
-    // const showChannelList =async()=>{
-    //     const list: Channel[]=await axios.get(`https://xlack.kreimben.com/api/channel/all`)
-    //     .then(res=>console.log(res))
-    //     .catch(err=>console.log(err));
+    useEffect(()=>{
+        let completed =false;
 
-    //    //dispatch(createRoom(list))
-       
-       
-    // }
+        async function showChannelList(){
+            try{
+                const res=await axios.get(`https://xlack.kreimben.com/api/channel/all`,
+                {
+                    headers:{
+                        //토큰
+                    }
+                    
+                })
+                setChannelList(res.data);
+            }catch(err){console.log(err)};
+           
+            return ()=>{
+                completed=true;
+            }
+        }
+    },[AddChannel])
+    
 
     const onClickshowChannels=useCallback(()=>{
         setshowChannels((prev)=>!prev);
@@ -55,14 +68,14 @@ function Sidebar(){
                 <CreateIcon/>
             </SidebarHeader>
 
-            <SidebarOption Icon={InsertCommentIcon} title='Threads'/> 
+            {/* <SidebarOption Icon={InsertCommentIcon} title='Threads'/> 
             <SidebarOption Icon={InboxIcon} title='Mention & reactions'/> 
             <SidebarOption Icon={DraftsIcon} title='Saved items'/> 
             <SidebarOption Icon={BookmarkBorderIcon} title='Channel browser'/> 
             <SidebarOption Icon={PeopleAltIcon} title='People & user groups'/> 
             <SidebarOption Icon={AppsIcon} title='Apps'/> 
             <SidebarOption Icon={FileCopyIcon} title='File browser'/> 
-            <SidebarOption Icon={ExpandLessIcon} title='Show less'/> 
+            <SidebarOption Icon={ExpandLessIcon} title='Show less'/>  */}
             <hr />
             <span onClick={onClickshowChannels}><SidebarOption Icon={ExpandMoreIcon} title='Channels'/></span>
             <hr />
@@ -74,7 +87,9 @@ function Sidebar(){
             })}
                 {/* 현재리덕스로 저장해서 불러옴, 서버에서 불러와야됨 */}
             
-            
+            {/* {showChannels&&ChannelList.map(title=>{
+                return <SidebarOption title={title} />
+            })} */}
             
 
             
