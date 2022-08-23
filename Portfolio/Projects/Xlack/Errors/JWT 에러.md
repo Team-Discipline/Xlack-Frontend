@@ -4,3 +4,4 @@
 
 이게 migration 에러인데, 원래 대로라면 `python manage.py makemigration user_custom` 을 한 후에 `python manage.py migrate` 를 하고 `python manage.py runserver` 를 하면 되는데, 에러가 난 것.
 
+[[xlack]]
