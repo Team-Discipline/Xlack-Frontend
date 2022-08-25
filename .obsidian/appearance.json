@@ -1,4 +1,5 @@
 {
   "theme": "system",
-  "cssTheme": "California Coast"
+  "cssTheme": "California Coast",
+  "baseFontSize": 19
 }
