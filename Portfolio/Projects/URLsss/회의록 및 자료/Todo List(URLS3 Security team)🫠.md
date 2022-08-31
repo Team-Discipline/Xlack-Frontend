@@ -26,6 +26,7 @@
 	- [ ] http://www.ktword.co.kr/test/view/view.php?m_temp1=3132
 	- [ ] SSL 유효성 검사 https://stackoverflow.com/questions/1087227/validate-ssl-certificates-with-python
 	- [ ] 추가 자료 검색은 키워드 : validate ssl certificate django 로 하면 됨
+	- [ ] django http response https://docs.djangoproject.com/en/4.1/ref/request-response/
 
 
 ## **Tech Stack**💻
