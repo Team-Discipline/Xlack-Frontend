@@ -22,6 +22,10 @@
 	- [ ] setting django ssl server https://intrepidgeeks.com/tutorial/apply-django-ssl
 	- [ ] CA(인증기관) 인증서 발급 받아서 사용(도메인 필요함)
 - [ ] **https**
+- [ ] 상대방의 js파일 포함 http 통신 자체를 검사해야함(찾아보기)
+	- [ ] http://www.ktword.co.kr/test/view/view.php?m_temp1=3132
+	- [ ] SSL 유효성 검사 https://stackoverflow.com/questions/1087227/validate-ssl-certificates-with-python
+	- [ ] 추가 자료 검색은 키워드 : validate ssl certificate django 로 하면 됨
 
 
 ## **Tech Stack**💻
@@ -54,4 +58,7 @@ Or use this library https://github.com/EnableSecurity/wafw00f#how-do-i-install-i
 - [ ] Start with setting http headers
 - [ ] getting TLS(SSL) key
 - [ ] Making policy for our website
+- [ ] Find out how to check the http communication itself, including the user's js file.
 - [ ] and so on...
+
+https://5xjin.github.io/blog/react_jwt_router/
