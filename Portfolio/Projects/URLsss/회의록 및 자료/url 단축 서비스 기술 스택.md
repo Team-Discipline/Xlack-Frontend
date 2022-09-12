@@ -1,3 +1,4 @@
+[[urls3]]
 ### 단축 URL 서비스
 단축 url 서비스는 URL Direction 기법을 통해 서비스 하는데, 이때 URL Direction 이란 특정 URL 을 요청하면, 다른 URL로 응답하는 기법이다.
 

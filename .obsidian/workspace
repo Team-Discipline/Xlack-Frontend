@@ -4,12 +4,12 @@
     "type": "split",
     "children": [
       {
-        "id": "01713a5313c31609",
+        "id": "51d44f4d298379d5",
         "type": "leaf",
         "state": {
           "type": "markdown",
           "state": {
-            "file": "수업 내용/웹프로그래밍/과제1.md",
+            "file": "수업 내용/모바일 스마트 시스템/과제 1.md",
             "mode": "source",
             "source": false
           }
@@ -61,7 +61,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 352.04429626464844
   },
   "right": {
     "id": "e7fa61f4a096ac07",
@@ -77,7 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "수업 내용/웹프로그래밍/과제1.md",
+                "file": "수업 내용/모바일 스마트 시스템/과제 1.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -94,7 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "수업 내용/웹프로그래밍/과제1.md",
+                "file": "수업 내용/모바일 스마트 시스템/과제 1.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -117,7 +117,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "수업 내용/웹프로그래밍/과제1.md"
+                "file": "수업 내용/모바일 스마트 시스템/과제 1.md"
               }
             }
           }
@@ -128,17 +128,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "01713a5313c31609",
+  "active": "51d44f4d298379d5",
   "lastOpenFiles": [
-    "수업 내용/웹프로그래밍/실습문제.md",
-    "Portfolio/Projects/URLsss/회의록 및 자료/url 단축 서비스 기술 스택.md",
-    "Portfolio/Projects/URLsss/회의록 및 자료/컨셉회의2.md",
+    "수업 내용/객체지향언어2/2주차.md",
+    "수업 내용/객체지향언어2/1주차.md",
+    "수업 내용/데이터통신/과제2.md",
     "Portfolio/Projects/URLsss/회의록 및 자료/전송용 자료.md",
     "Portfolio/Projects/URLsss/개발일지/2022-08-23.md",
-    "Portfolio/Projects/URLsss/회의록 및 자료/Todo List(URLS3 Security team)🫠.md",
-    "수업 내용/웹프로그래밍/과제1.md",
-    "수업 내용/무제노트.md",
-    "수업 내용/알고리즘/1주차.md",
-    "수업 내용/객체지향언어2/1주차.md"
+    "Portfolio/Projects/URLsss/개발일지/2022-09-07.md",
+    "Portfolio/Projects/URLsss/urls3.md",
+    "Portfolio/Projects/URLsss/회의록 및 자료/url 단축 서비스 기술 스택.md",
+    "Portfolio/Projects/URLsss/회의록 및 자료/Todo2.md",
+    "Portfolio/Projects/URLsss/회의록 및 자료/Todo List(URLS3 Security team)🫠.md"
   ]
 }

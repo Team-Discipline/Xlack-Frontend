@@ -1,3 +1,4 @@
+[[urls3]]
 # **Todo List(URLS3 Security team)🫠
 - [ ] **XSS(Cross-Site Scripting)**
 	- [ ] setting up a web application firewall(WAP)
@@ -63,3 +64,6 @@ Or use this library https://github.com/EnableSecurity/wafw00f#how-do-i-install-i
 - [ ] and so on...
 
 https://5xjin.github.io/blog/react_jwt_router/
+
+python waf 
+https://waf.io/apidocs/tutorial.html#
