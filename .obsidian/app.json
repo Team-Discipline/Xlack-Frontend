@@ -11,5 +11,6 @@
     "ko",
     "en-US"
   ],
-  "showLineNumber": false
+  "showLineNumber": false,
+  "attachmentFolderPath": "Images"
 }
