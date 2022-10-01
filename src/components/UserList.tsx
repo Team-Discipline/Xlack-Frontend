@@ -38,6 +38,6 @@ const UserListContainer = styled.div`
     padding: 5px;
     margin-top: 60px;
     position: 'absolute';
-    top: 200;
-    left: 200;
+    top: 200px;
+    left: 200px;
 `;

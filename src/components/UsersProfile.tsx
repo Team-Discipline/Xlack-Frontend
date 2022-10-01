@@ -16,5 +16,8 @@ const UserContainer = styled.div`
     color: white;
     display: flex;
     padding: 3px;
+    width: 100%;
+    word-break: keep-all;
+    overflow-wrap: break-word;
     border-bottom: 1px solid #49274b;
 `;

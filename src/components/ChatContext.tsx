@@ -36,10 +36,10 @@ function ChatContext({id, channel, chatter, message, created_at}: ChatType) {
                         {chatterName && chatterName.user.first_name}_{chatterName && chatterName.user.last_name}
                     </HeaderLeft>
                     <br></br>
-
-                    <HeaderRight>{created_at}</HeaderRight>
+                    <HeaderRight>
+                        {created_at.slice(0, 10)}&nbsp;{created_at.slice(11, 19)}
+                    </HeaderRight>
                 </Header>
-
                 <ChatMessages>
                     <h2>{message}</h2>
                 </ChatMessages>
@@ -84,7 +84,7 @@ const HeaderRight = styled.div`
     }
 `;
 const ChatContainer = styled.div`
-    background-color: #f5d682;
+    background-color: #ede8e8;
     border: 1px solid black;
     border-radius: 3px;
     flex: 0.7;
