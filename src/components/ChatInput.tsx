@@ -84,7 +84,7 @@ function ChatInput() {
     return (
         <ChatInputContainer>
             <form>
-                <input ref={inputRef} onChange={e => setmsg(e.target.value)} placeholder={`Message #`} />
+                <input ref={inputRef} onChange={e => setmsg(e.target.value)} placeholder={`Message #ROOM`} />
                 <button hidden type="submit" onClick={sendMessage}>
                     SEND
                 </button>

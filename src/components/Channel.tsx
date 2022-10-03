@@ -3,11 +3,10 @@ import {ChannelType} from './types';
 import styled from 'styled-components';
 
 function Channel({name, id}: ChannelType) {
-    const ThisChannelTitle = name;
     return (
         <ChannelContainer>
             <OptionChannel>
-                # {ThisChannelTitle}__ {id}
+                # {name}__ {id}
             </OptionChannel>
         </ChannelContainer>
     );

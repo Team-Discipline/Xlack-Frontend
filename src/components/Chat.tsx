@@ -7,6 +7,7 @@ import {useSelector} from 'react-redux';
 import axios from 'axios';
 import ChatContext from './ChatContext';
 import {getChat} from './types';
+import Channel from './Channel';
 
 function Chat() {
     const receiveMessage = useSelector((state: RootState) => state.UpdateChatContext.receiveMessage);
@@ -41,7 +42,7 @@ function Chat() {
             {/* {roomDetails && roomMessages && ( */}
             <>
                 <ChatMessages ref={messagesRef}>
-                    <h1>ChatMessage</h1>
+                    <h4>{enterRoomId}</h4>
                     {getChatData &&
                         getChatData.results
                             .slice(0)
