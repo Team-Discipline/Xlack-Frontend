@@ -7,7 +7,6 @@ import {useSelector} from 'react-redux';
 import axios from 'axios';
 import ChatContext from './ChatContext';
 import {getChat} from './types';
-import Channel from './Channel';
 
 function Chat() {
     const receiveMessage = useSelector((state: RootState) => state.UpdateChatContext.receiveMessage);
