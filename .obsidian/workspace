@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "수업 내용/웹프로그래밍/7장 요약.md",
+            "file": "수업 내용/객체지향언어2/과제4.md",
             "mode": "source",
             "source": false
           }
@@ -61,8 +61,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 352.04429626464844,
-    "collapsed": true
+    "width": 352.04429626464844
   },
   "right": {
     "id": "e7fa61f4a096ac07",
@@ -78,7 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "수업 내용/웹프로그래밍/7장 요약.md",
+                "file": "수업 내용/객체지향언어2/과제4.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -95,7 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "수업 내용/웹프로그래밍/7장 요약.md",
+                "file": "수업 내용/객체지향언어2/과제4.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -118,7 +117,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "수업 내용/웹프로그래밍/7장 요약.md"
+                "file": "수업 내용/객체지향언어2/과제4.md"
               }
             }
           }
@@ -132,6 +131,7 @@
   "active": "ea35df0d9e5fe952",
   "lastOpenFiles": [
     "Portfolio/Projects/Xlack/Frontend/TODO.md",
+    "수업 내용/웹프로그래밍/7장 요약.md",
     "Portfolio/Projects/Xlack/Errors/JWT 에러.md",
     "수업 내용/웹프로그래밍/6장 요약.md",
     "Portfolio/Projects/URLsss/개발일지/2022-09-26.md",
@@ -139,7 +139,6 @@
     "Portfolio/Projects/URLsss/회의록 및 자료/Todo List(URLS3 Security team)🫠.md",
     "Portfolio/Projects/URLsss/회의록 및 자료/컨셉회의2.md",
     "Portfolio/Projects/URLsss/회의록 및 자료/전송용 자료.md",
-    "Portfolio/Projects/URLsss/urls3.md",
-    "Portfolio/Projects/URLsss/회의록 및 자료/Todo2.md"
+    "Portfolio/Projects/URLsss/urls3.md"
   ]
 }
