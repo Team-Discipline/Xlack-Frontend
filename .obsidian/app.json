@@ -5,12 +5,14 @@
     "pageSize": "A4",
     "landscape": false,
     "margin": "0",
-    "downscalePercent": 80
+    "downscalePercent": 85
   },
   "spellcheckLanguages": [
     "ko",
     "en-US"
   ],
   "showLineNumber": false,
-  "attachmentFolderPath": "Images"
+  "attachmentFolderPath": "Images",
+  "readableLineLength": true,
+  "spellcheck": false
 }
