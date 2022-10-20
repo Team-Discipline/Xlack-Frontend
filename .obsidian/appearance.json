@@ -1,5 +1,6 @@
 {
   "theme": "system",
   "cssTheme": "California Coast",
-  "baseFontSize": 15
+  "baseFontSize": 15,
+  "accentColor": ""
 }

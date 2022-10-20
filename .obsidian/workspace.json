@@ -4,16 +4,22 @@
     "type": "split",
     "children": [
       {
-        "id": "ea35df0d9e5fe952",
-        "type": "leaf",
-        "state": {
-          "type": "markdown",
-          "state": {
-            "file": "수업 내용/객체지향언어2/과제 5.md",
-            "mode": "source",
-            "source": false
+        "id": "04d0b0e390a48e9e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ea35df0d9e5fe952",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "수업 내용/알고리즘/실습.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
-        }
+        ]
       }
     ],
     "direction": "vertical"
@@ -31,7 +37,9 @@
             "type": "leaf",
             "state": {
               "type": "file-explorer",
-              "state": {}
+              "state": {
+                "sortOrder": "alphabetical"
+              }
             }
           },
           {
@@ -77,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "수업 내용/객체지향언어2/과제 5.md",
+                "file": "수업 내용/알고리즘/실습.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -94,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "수업 내용/객체지향언어2/과제 5.md",
+                "file": "수업 내용/알고리즘/실습.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -117,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "수업 내용/객체지향언어2/과제 5.md"
+                "file": "수업 내용/알고리즘/실습.md"
               }
             }
           }
@@ -128,8 +136,13 @@
     "width": 300,
     "collapsed": true
   },
+  "ribbon": {
+    "mostRecentAction": ""
+  },
   "active": "ea35df0d9e5fe952",
   "lastOpenFiles": [
+    "수업 내용/객체지향언어2/계좌 과제.md",
+    "수업 내용/객체지향언어2/과제 5.md",
     "수업 내용/알고리즘/실습.md",
     "수업 내용/웹프로그래밍/과제2.md",
     "수업 내용/웹프로그래밍/과제1.md",
@@ -137,8 +150,6 @@
     "수업 내용/웹프로그래밍/7장 요약.md",
     "수업 내용/웹프로그래밍/6장 요약.md",
     "수업 내용/웹프로그래밍/5장 요약.md",
-    "수업 내용/웹프로그래밍/2주차.md",
-    "수업 내용/알고리즘/2주차.md",
-    "수업 내용/알고리즘/1주차.md"
+    "수업 내용/웹프로그래밍/2주차.md"
   ]
 }
