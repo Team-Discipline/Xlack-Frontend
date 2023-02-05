@@ -21,7 +21,8 @@ function LogoutPost() {
     headers: {
       accept: "application/json",
       "Content-Type": "application/json",
-      "X-CSRFToken": "HNjIpLRiGLyai7RmKNHhH8SOq6yzPWrndcnHRfy9nvs6vujwW0kk6jUTxSn57ttZ",
+      "X-CSRFToken":
+        "HNjIpLRiGLyai7RmKNHhH8SOq6yzPWrndcnHRfy9nvs6vujwW0kk6jUTxSn57ttZ",
     },
   };
   axios.post(url, null, config);

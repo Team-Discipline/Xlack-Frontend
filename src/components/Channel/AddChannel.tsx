@@ -12,7 +12,9 @@ function AddChannel({ Icon, title, id }: SidebarInfo) {
     console.log(at);
     console.log(rt);
     try {
-      const channelName: string | null = prompt("Please enter the channel name");
+      const channelName: string | null = prompt(
+        "Please enter the channel name"
+      );
 
       if (channelName) {
         // db에 name: channelName 방추가
@@ -25,7 +27,7 @@ function AddChannel({ Icon, title, id }: SidebarInfo) {
             headers: {
               Authorization: `Bearer ${at}`,
             },
-          },
+          }
         );
         //                console.log();
         dispatch(UpdateRoom());

@@ -4,7 +4,6 @@ import { Avatar } from "@material-ui/core";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import SearchIcon from "@mui/icons-material/Search";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
-import StatusPanel from "./Status/StatusPanel";
 import ProfileMenu from "./Profile/ProfileMenu";
 import { useSelector } from "react-redux";
 import { RootState } from "../app/store";
@@ -54,7 +53,7 @@ function Header() {
         <SearchIcon />
         <input placeholder="Search"></input>
       </HeaderSearch>
-      <StatusPanel />
+
       {/* {Header Right} */}
       <HeaderRight>
         <HelpOutlineIcon />

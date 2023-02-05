@@ -6,7 +6,7 @@ export const UpdateChannelSlice = createSlice({
     title: ["test"],
   },
   reducers: {
-    UpdateRoom: state => {
+    UpdateRoom: (state) => {
       state.title.push("asdf");
       state.title.pop();
     },

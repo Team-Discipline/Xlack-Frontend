@@ -17,7 +17,7 @@ function FistPage() {
             <img src={xlackLogo} alt="slackLogo" />
           </ImageContainer>
           <Titlemessage>
-            Xlack brings the <br /> team together <br /> wherever you are
+            Slack brings the <br /> team together <br /> wherever you are
           </Titlemessage>
           <button
             onClick={() => {
@@ -28,7 +28,10 @@ function FistPage() {
           </button>
           <Submessage>
             Is your team new to Xlack?&nbsp;
-            <Link to={"/workspace"} style={{ color: "white", fontSize: "20px" }}>
+            <Link
+              to={"/workspace"}
+              style={{ color: "white", fontSize: "20px" }}
+            >
               Create a new Workspace
             </Link>
           </Submessage>
