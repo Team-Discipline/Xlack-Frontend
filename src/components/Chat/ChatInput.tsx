@@ -88,7 +88,7 @@ function ChatInput(props: any) {
       w.wb.onmessage = message => {
         const nm = JSON.parse(message.data);
         if (nm.message !== undefined) {
-          showNotification(nm.username, nm.message);
+          showNotification(nm.username, nm.message, w.ch_hv);
         }
       };
     });

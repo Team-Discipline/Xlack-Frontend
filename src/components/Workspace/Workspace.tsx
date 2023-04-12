@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { WorkspaceType } from "../../types/types";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CallClickedWorkSpace, SetClickedWorkSpace } from "../../variable/WorkSpaceSlice";
+import { RootState } from "../../app/store";
 
 function Workspace(props: WorkspaceType) {
   return (
@@ -42,6 +43,7 @@ export function SelectWorkspace(prop: WorkspaceType) {
         >
           {prop.name.slice(0, 1).toUpperCase()}
         </WorkspaceButton>
+        {}
       </OptionWorkspace>
     </WorkspaceContainer>
   );
@@ -106,3 +108,4 @@ const Workspaces = styled.div`
   text-align: center;
   padding: 15px 0 0;
 `;
+const SetCount = styled.div``;

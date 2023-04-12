@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { at, WsUrl_notification } from "../../variable/cookie";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getChannel, CompleteGetUnReadChannel } from "../../variable/UnreadChannelSlice";
+import Chat from "../Chat/Chat";
+import { rightClick_channel } from "../../variable/WorkSpaceSlice";
+import { setClickedChannel } from "../../variable/ClickedChannelSlice";
+import { RootState } from "../../app/store";
 
 export function Notifi() {
   const [notifiSocket, setNotifiSocket] = useState<WebSocket>();
@@ -30,7 +34,13 @@ export function Notifi() {
     };
   }
 }
-export function showNotification(title: string, message: string) {
+export function showNotification(title: string, message: string, ch: any) {
+  // const search_channel = useSelector((state: RootState) => state.getMyWorkSpace.SearchedChannel);
+  const dispatch = useDispatch();
+  const handleClick = () => {
+    console.log("알림 클릭");
+    dispatch(setClickedChannel(ch));
+  };
   if (!("Notification" in window)) {
     console.error("This browser does not support desktop notification");
     return;
@@ -44,6 +54,7 @@ export function showNotification(title: string, message: string) {
       icon: "/path/to/icon.png",
       dir: "rtl",
     });
+    notification.addEventListener("click", handleClick);
   } else if (Notification.permission !== "denied") {
     // 알림 권한이 없는 경우 권한을 요청합니다.
     Notification.requestPermission().then(permission => {
@@ -53,6 +64,7 @@ export function showNotification(title: string, message: string) {
           body: message,
           icon: "/path/to/icon.png",
         });
+        notification.addEventListener("click", handleClick);
       }
     });
   }

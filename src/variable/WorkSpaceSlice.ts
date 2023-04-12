@@ -4,7 +4,6 @@ import { ChatChannelType, ChatType, WorkspaceType } from "../types/types";
 interface struct {
   MyWorkSpace: WorkspaceType[];
   rightClicked_channel_hashed_value: string;
-  ClickedWorkSpace_hashed_value: string;
   ClickedWorkSpace: WorkspaceType;
   SearchedChannel: ChatChannelType;
   CompletegetWorkspace: boolean;
@@ -13,7 +12,6 @@ interface struct {
 const initialState: struct = {
   MyWorkSpace: [],
   rightClicked_channel_hashed_value: "",
-  ClickedWorkSpace_hashed_value: "",
   ClickedWorkSpace: {
     created_at: "",
     updated_at: "",
@@ -57,11 +55,11 @@ export const WorkSpaceSlice = createSlice({
       state.ClickedWorkSpace.chat_channel = action.payload;
     },
     SetClickedWorkSpace: (state, action: PayloadAction<string>) => {
-      state.ClickedWorkSpace_hashed_value = action.payload;
+      state.ClickedWorkSpace.hashed_value = action.payload;
     },
 
     CallClickedWorkSpace: (state, action: PayloadAction<void>) => {
-      const w = state.ClickedWorkSpace_hashed_value;
+      const w = state.ClickedWorkSpace.hashed_value;
       state.MyWorkSpace.forEach(value => {
         if (value.hashed_value === w) {
           state.ClickedWorkSpace = value;
@@ -75,6 +73,17 @@ export const WorkSpaceSlice = createSlice({
         if (value.hashed_value === r) {
           state.SearchedChannel = value;
         }
+      });
+    },
+    SearchChannelInAll: (state, action: PayloadAction<void>) => {
+      const r = state.rightClicked_channel_hashed_value;
+      state.MyWorkSpace.forEach(w => {
+        w.chat_channel?.forEach(value => {
+          if (value.hashed_value === r) {
+            state.SearchedChannel = value;
+            state.ClickedWorkSpace = w;
+          }
+        });
       });
     },
     rightClick_channel: (state, action: PayloadAction<string>) => {
@@ -111,6 +120,17 @@ export const WorkSpaceSlice = createSlice({
   },
 });
 
-export const { getWorkSpace, getChannelList, clearWorkSpace, SetClickedWorkSpace, CallClickedWorkSpace, SearchChannel, rightClick_channel, SaveChat, CompleteGetMyWorkspace, AppendChat } =
-  WorkSpaceSlice.actions;
+export const {
+  getWorkSpace,
+  getChannelList,
+  clearWorkSpace,
+  SetClickedWorkSpace,
+  CallClickedWorkSpace,
+  SearchChannel,
+  rightClick_channel,
+  SaveChat,
+  CompleteGetMyWorkspace,
+  AppendChat,
+  SearchChannelInAll,
+} = WorkSpaceSlice.actions;
 export default WorkSpaceSlice.reducer;
