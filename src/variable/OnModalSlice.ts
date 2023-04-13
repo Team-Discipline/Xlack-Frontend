@@ -6,6 +6,7 @@ export const OnModalSlice = createSlice({
     OnEditProfilePage: false,
     OnEditContactInfo: false,
     OnChannelSetting: false,
+    OnNotification: true,
   },
   reducers: {
     EditProfileOnOff: state => {
@@ -17,9 +18,12 @@ export const OnModalSlice = createSlice({
     ChannelSettingOnOff: state => {
       state.OnChannelSetting = !state.OnChannelSetting;
     },
+    NotificationSettingOnOff: state => {
+      state.OnNotification = !state.OnNotification;
+    },
   },
 });
 
-export const { EditProfileOnOff, EditContactInfoOnOff, ChannelSettingOnOff } = OnModalSlice.actions;
+export const { EditProfileOnOff, EditContactInfoOnOff, ChannelSettingOnOff, NotificationSettingOnOff } = OnModalSlice.actions;
 
 export default OnModalSlice.reducer;

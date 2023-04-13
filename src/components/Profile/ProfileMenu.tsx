@@ -1,12 +1,15 @@
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { EditProfileOnOff } from "../../variable/OnModalSlice";
+import { EditProfileOnOff, NotificationSettingOnOff } from "../../variable/OnModalSlice";
 import MyState from "./MyState";
 import { RootState } from "../../app/store";
+import { useState } from "react";
 
 const ProfileMenu = () => {
+  const isOff = useSelector((state: RootState) => state.OnModal.OnNotification);
   const dispatch = useDispatch();
   const MyUser = useSelector((state: RootState) => state.getMyProfile.userData);
+
   return (
     <>
       {MyUser && (
@@ -33,7 +36,13 @@ const ProfileMenu = () => {
               </a>
               <a className="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600" role="menuitem">
                 <span className="flex flex-col">
-                  <span>알람 일시정지</span>
+                  <span
+                    onClick={() => {
+                      dispatch(NotificationSettingOnOff());
+                    }}
+                  >
+                    {isOff ? "on" : "off"}
+                  </span>
                 </span>
               </a>
               <a className="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600" role="menuitem">
