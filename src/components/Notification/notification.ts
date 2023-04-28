@@ -60,25 +60,33 @@ export function showNotification(title: string, message: string, ch: string) {
   // 사용자가 알림 권한을 허용했는지 확인합니다.
   if (Notification.permission === "granted") {
     // 알림을 생성합니다.
-    const notification = new Notification(title, {
-      body: message,
-      // position: message,
-      data: ch,
-      icon: "/path/to/icon.png",
-      dir: "rtl",
-    });
-    notification.addEventListener("click", handleClick);
+    // 브라우저가 제일 위에서 실행되고 있지 않을 때만 알림 실행
+    if (!document.hasFocus()) {
+      // 알림을 보내는 로직
+      const notification = new Notification(title, {
+        body: message,
+        // position: message,
+        data: ch,
+        icon: "/path/to/icon.png",
+        dir: "rtl",
+      });
+      notification.addEventListener("click", handleClick);
+    }
   } else if (Notification.permission !== "denied") {
     // 알림 권한이 없는 경우 권한을 요청합니다.
     Notification.requestPermission().then(permission => {
       if (permission === "granted") {
-        // 알림을 생성합니다.
-        const notification = new Notification(title, {
-          body: message,
-          data: ch,
-          icon: "/path/to/icon.png",
-        });
-        notification.addEventListener("click", handleClick);
+        if (!document.hasFocus()) {
+          // 알림을 보내는 로직
+          const notification = new Notification(title, {
+            body: message,
+            // position: message,
+            data: ch,
+            icon: "/path/to/icon.png",
+            dir: "rtl",
+          });
+          notification.addEventListener("click", handleClick);
+        }
       }
     });
   }
