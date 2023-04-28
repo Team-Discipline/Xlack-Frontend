@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { at, WsUrl_notification } from "../../variable/cookie";
+import { at, WsUrl_chat, WsUrl_notification } from "../../variable/cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { getChannel, CompleteGetUnReadChannel } from "../../variable/UnreadChannelSlice";
 import Chat from "../Chat/Chat";
 import { rightClick_channel } from "../../variable/WorkSpaceSlice";
 import { setClickedChannel } from "../../variable/ClickedChannelSlice";
 import { RootState } from "../../app/store";
+import { ChatChannelType } from "../../types/types";
 
 export function Notifi() {
   const [notifiSocket, setNotifiSocket] = useState<WebSocket>();
@@ -34,12 +35,23 @@ export function Notifi() {
     };
   }
 }
-export function showNotification(title: string, message: string, ch: any) {
+export function showNotification(title: string, message: string, ch: string) {
   // const search_channel = useSelector((state: RootState) => state.getMyWorkSpace.SearchedChannel);
   const dispatch = useDispatch();
-  const handleClick = () => {
-    console.log("알림 클릭");
-    dispatch(setClickedChannel(ch));
+  // const [MyWebSocket, setMyWebSocket] = useState<{ ch_hv: string; wb: WebSocket }[]>([]);
+  const handleClick = (event: any) => {
+    console.log("알림 클릭 event, ch", event, ch);
+    dispatch(setClickedChannel(event.data.ch_hv));
+    const channel_hv = ch;
+    const webSocket = new WebSocket(`${WsUrl_chat}${channel_hv}/`);
+    webSocket.onopen = () => {
+      webSocket.send(
+        JSON.stringify({
+          channel_hashed_value: { channel_hv },
+        }),
+      );
+    };
+    console.log(event.data);
   };
   if (!("Notification" in window)) {
     console.error("This browser does not support desktop notification");
@@ -51,6 +63,7 @@ export function showNotification(title: string, message: string, ch: any) {
     const notification = new Notification(title, {
       body: message,
       // position: message,
+      data: ch,
       icon: "/path/to/icon.png",
       dir: "rtl",
     });
@@ -62,6 +75,7 @@ export function showNotification(title: string, message: string, ch: any) {
         // 알림을 생성합니다.
         const notification = new Notification(title, {
           body: message,
+          data: ch,
           icon: "/path/to/icon.png",
         });
         notification.addEventListener("click", handleClick);

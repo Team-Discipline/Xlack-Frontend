@@ -17,7 +17,8 @@ function ChatInput(props: any) {
   const [MyWebSocket, setMyWebSocket] = useState<{ ch_hv: string; wb: WebSocket }[]>([]);
   const notifi = useSelector((state: RootState) => state.UnReadChannel);
   const dispatch = useDispatch();
-
+  const notifiSetting = useSelector((state: RootState) => state.OnModal.OnNotification);
+  // const [no, setNo] = useState(true);
   useEffect(() => {
     if (CompleteGetWorkspace) {
       Myworkspace.forEach(w => {
@@ -79,7 +80,9 @@ function ChatInput(props: any) {
   //     };
   //   }
   // }, [socket]);
-
+  /*  useEffect(() => {
+    setNo(notifiSetting);
+  }, [notifiSetting]);*/
   //랜더링 시점 = notification 웹소켓 내용 변화시
   useEffect(() => {
     MyWebSocket.forEach(w => {
@@ -87,12 +90,12 @@ function ChatInput(props: any) {
       console.log(w.wb);
       w.wb.onmessage = message => {
         const nm = JSON.parse(message.data);
-        if (nm.message !== undefined) {
+        if (nm.message !== undefined && notifiSetting == true) {
           showNotification(nm.username, nm.message, w.ch_hv);
         }
       };
     });
-  }, [notifi]);
+  }, [notifi, notifiSetting]);
   const sendMessage = (event: { preventDefault: () => void }) => {
     event.preventDefault();
     if (socket) {

@@ -6,7 +6,7 @@ import { RootState } from "../../app/store";
 import { useState } from "react";
 
 const ProfileMenu = () => {
-  const isOff = useSelector((state: RootState) => state.OnModal.OnNotification);
+  const notifiSetting = useSelector((state: RootState) => state.OnModal.OnNotification);
   const dispatch = useDispatch();
   const MyUser = useSelector((state: RootState) => state.getMyProfile.userData);
 
@@ -41,7 +41,7 @@ const ProfileMenu = () => {
                       dispatch(NotificationSettingOnOff());
                     }}
                   >
-                    {isOff ? "on" : "off"}
+                    {notifiSetting ? "알림 수신중" : "알림 정지중"}
                   </span>
                 </span>
               </a>
