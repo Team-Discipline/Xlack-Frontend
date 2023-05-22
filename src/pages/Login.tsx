@@ -1,7 +1,7 @@
 import React from "react";
 import { LoginDjango } from "../variable/login";
 import LoginGithub from "react-login-github";
-import { local, setCookie } from "../variable/cookie";
+import { local, setCookie, xlackUrl } from "../variable/cookie";
 import styled, { keyframes } from "styled-components";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -26,7 +26,7 @@ function Login() {
       <LoginMessage>We'll take you to the Github login page, and bring you back here.</LoginMessage>
       <LoginMessage>
         Is your team new to Slack?&nbsp;
-        <a href={`${local}Workspace`} style={{ color: "white", fontSize: "20px" }}>
+        <a href={`${xlackUrl}Workspace`} style={{ color: "white", fontSize: "20px" }}>
           Create a new Workspace
         </a>
       </LoginMessage>
@@ -50,7 +50,7 @@ export function AccessToken(resData: any, exp: any) {
       expires: new Date(),
       httpOnly: true,
     });
-    window.location.href = `${local}main`;
+    window.location.href = `${xlackUrl}main`;
   }
 }
 

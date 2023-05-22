@@ -4,7 +4,7 @@ import { CreateWorkspace } from "../variable/createWorkspace";
 import { AccessToken } from "./Login";
 import LoginGithub from "react-login-github";
 import { useNavigate } from "react-router-dom";
-import {backUrl, local} from "../variable/cookie";
+import { backUrl, local, xlackUrl } from "../variable/cookie";
 import axios from "axios";
 
 async function CreateW(code: string): Promise<JSON> {
@@ -32,7 +32,7 @@ function CreateNewWorkspace() {
     let token_info;
     CreateW(response["code"]).then(res => {
       token_info = res;
-      window.location.href = `${local}setTeamName`;
+      window.location.href = `${xlackUrl}setTeamName`;
       //console.log(token_info);
     });
   };

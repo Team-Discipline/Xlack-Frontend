@@ -50,7 +50,15 @@ export const WsUrl_chat = "wss://api.xlack.kreimben.com/ws/chat/";
 export const WsUrl_status = "wss://api.xlack.kreimben.com/ws/status/";
 export const WsUrl_notification = "wss://api.xlack.kreimben.com/ws/notification/";
 export const WsUrl_reaction = "wss://api.xlack.kreimben.com/ws/chat_reaction/";
-export const xlackUrl = "https://xlack.kreimben.com/";
+export let xlackUrl = "https://xlack.kreimben.com/";
+export const find = () => {
+  if (location.hostname === "localhost") {
+    xlackUrl = "http://localhost:3000/";
+  } else {
+    xlackUrl = "https://xlack.kreimben.com/";
+  }
+};
+
 export const local = "http://localhost:3000/";
 export const setCookie = (name: string, value: string, option?: any) => {
   return cookies.set(name, value, {});

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import React, { useState } from "react";
-import { local } from "../../variable/cookie";
+import { xlackUrl } from "../../variable/cookie";
 
 function ModalMenuList() {
   const [isHovering, setIsHovering] = useState<boolean>(false);
@@ -46,7 +46,7 @@ function ModalMenuList() {
         ) : (
           <></>
         )}
-        <Button className="createWork" onClick={() => (window.location.href = `${local}setTeamName`)}>
+        <Button className="createWork" onClick={() => (window.location.href = `${xlackUrl}setTeamName`)}>
           워크스페이스 추가
         </Button>
         <Separator>
