@@ -26,12 +26,6 @@ const Historymenu = (props: any) => {
     setClickedHistoryChannelName(h.name);
   };
   useEffect(() => {
-    if (search_channel.name === ClickedHistoryChannelName) {
-      dispatch(setClickedChannel(search_channel));
-    }
-  }, [search_channel]);
-
-  useEffect(() => {
     sethistoryData(localStorage_hisory);
   }, []);
   const deleteObject = (nameToDelete: string) => {
@@ -41,7 +35,9 @@ const Historymenu = (props: any) => {
   };
 
   useEffect(() => {
-    dispatch(setClickedChannel(search_channel));
+    if (search_channel.name === ClickedHistoryChannelName) {
+      dispatch(setClickedChannel(search_channel));
+    }
     console.log(search_channel);
     if (!MenuOpen) {
       if (search_channel.id === -2) {

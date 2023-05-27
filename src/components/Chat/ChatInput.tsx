@@ -1,14 +1,19 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { RootState } from "../../app/store";
 import { UpdateChat } from "../../variable/UpdateChatContextSlice";
 import { findUserDataInClickedChannel } from "../../variable/ClickedChannelSlice";
-import { at, WsUrl_chat } from "../../variable/cookie";
+import { at, backUrl, WsUrl_chat } from "../../variable/cookie";
 import ChatMentionModal from "./ChatMentionModal";
 import { showNotification } from "../Notification/notification";
+import { SocketReceiveChatType } from "../../types/types";
+import axios from "axios";
 
-function ChatInput(props: any) {
+type ChatInputProps = {
+  receive: (ch_hv: string, data: SocketReceiveChatType) => void;
+};
+const ChatInput = (props: ChatInputProps) => {
   const [msg, setmsg] = useState("");
   const [socket, setsocket] = useState<WebSocket>();
   const UpdateChannel = useSelector((state: RootState) => state.UpdateChannel);
@@ -20,13 +25,14 @@ function ChatInput(props: any) {
   const Myworkspace = useSelector((state: RootState) => state.getMyWorkSpace.MyWorkSpace);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const File_name = useSelector((state: RootState) => state.Chat.SendMessage.file_name);
-  //const File = useSelector((state: RootState) => state.Chat.SendMessage.file);
   const [MyWebSocket, setMyWebSocket] = useState<{ ch_hv: string; wb: WebSocket }[]>([]);
   const notifi = useSelector((state: RootState) => state.UnReadChannel);
+  const [NWebSocket, setNWebSocket] = useState<{ ch_hv: string; wb: WebSocket }[]>([]);
   const notifiSetting = useSelector((state: RootState) => state.OnModal.OnNotification);
+  const MyProfile = useSelector((state: RootState) => state.getMyProfile.userData);
   const dispatch = useDispatch();
-
   useEffect(() => {
+    console.log("1");
     if (CompleteGetWorkspace) {
       Myworkspace.forEach(w => {
         w.chat_channel?.forEach(c => {
@@ -64,10 +70,15 @@ function ChatInput(props: any) {
       if (w.ch_hv === Clicked_channel_hv) {
         setsocket(w.wb);
       }
-      if (Clicked_channel_hv !== "") {
+      if (Clicked_channel_hv !== "" && w.ch_hv === Clicked_channel_hv) {
         w.wb.onmessage = message => {
           // 클라이언트로부터 메시지 수신 시
           const m = JSON.parse(message.data);
+          if (m.message !== undefined && notifiSetting == true) {
+            if (m.user_id !== MyProfile.id) {
+              showNotification(m.username, m.message);
+            }
+          }
           dispatch(findUserDataInClickedChannel(m.user_id));
           props.receive(w.ch_hv, m);
           dispatch(UpdateChat());
@@ -99,29 +110,42 @@ function ChatInput(props: any) {
   //랜더링 시점 = notification 웹소켓 내용 변화시
   useEffect(() => {
     MyWebSocket.forEach(w => {
-      setsocket(w.wb);
+      // setsocket(w.wb);
       w.wb.onmessage = message => {
         const nm = JSON.parse(message.data);
         if (nm.message !== undefined && notifiSetting == true) {
-          showNotification(nm.username, nm.message);
+          if (nm.user_id !== MyProfile.id) {
+            showNotification(nm.username, nm.message);
+          }
         }
+        dispatch(findUserDataInClickedChannel(nm.user_id));
+        props.receive(w.ch_hv, nm);
+        dispatch(UpdateChat());
       };
     });
   }, [notifi]);
-
+  useEffect(() => {
+    console.log("4");
+    if (socket) {
+      socket.send(
+        JSON.stringify({
+          message: File_name,
+        }),
+      );
+    }
+  }, [File_name]);
   const sendMessage = (event: { preventDefault: () => void }) => {
     event.preventDefault();
+    console.log(socket);
     if (socket && msg !== "") {
       socket.send(
         JSON.stringify({
           message: msg,
-          //file: File_id,
         }),
       );
     }
 
     if (inputRef.current) {
-      // enter 치면 chatbox 공백으로 초기화 됨
       inputRef.current.value = "";
       setmsg("");
     }
@@ -135,6 +159,7 @@ function ChatInput(props: any) {
     }
     setShowMentionModal(false);
   };
+
   return (
     <ChatInputContainer>
       <form>
@@ -163,7 +188,7 @@ function ChatInput(props: any) {
       </form>
     </ChatInputContainer>
   );
-}
+};
 
 export default ChatInput;
 

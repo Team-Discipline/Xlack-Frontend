@@ -92,7 +92,7 @@ function Sidebar() {
   return (
     <SidebarContainer>
       <SidebarHeader onClick={onClickToggleModal}>
-        {isOpenModal && <Modal onClickToggleModal={onClickToggleModal}></Modal>}
+        {/*{isOpenModal && <Modal onClickToggleModal={onClickToggleModal}></Modal>}*/}
         <SidebarTop className="sidebarTop">
           <div className="sidebarHeaderButton">
             <div className="sidebarHeaderInfo">

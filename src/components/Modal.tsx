@@ -10,7 +10,6 @@ function Modal({ onClickToggleModal, children }: PropsWithChildren<ModalDefaultT
   return (
     <ModalContainer>
       <DialogBox>
-        <MenuList></MenuList>
         {(e: React.MouseEvent) => {
           e.preventDefault();
 

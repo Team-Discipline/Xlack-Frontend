@@ -40,20 +40,26 @@ const IdPwLogin = () => {
       });
   };
 
-  return (
-    <>
-      <Id onChange={event => setId(event.target.value)} />
-      <Pw type={"password"} onChange={event => setPw(event.target.value)} />
-      <div>{login_success}</div>
-      <button
-        onClick={() => {
-          login();
-        }}
-      >
-        로그인
-      </button>
-    </>
-  );
+  const isLocalhost = window.location.href.includes("localhost") || window.location.href.includes("127.0.0.1");
+
+  if (isLocalhost) {
+    return (
+      <>
+        <Id onChange={event => setId(event.target.value)} />
+        <Pw type={"password"} onChange={event => setPw(event.target.value)} />
+        <div>{login_success}</div>
+        <button
+          onClick={() => {
+            login();
+          }}
+        >
+          로그인
+        </button>
+      </>
+    );
+  } else {
+    return <></>;
+  }
 };
 export default IdPwLogin;
 

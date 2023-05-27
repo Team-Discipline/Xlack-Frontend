@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { ChannelSettingOnOff } from "../../variable/OnModalSlice";
 import { RootState } from "../../app/store";
-import { useEffect } from "react";
 import { Tabs, TabsProps } from "antd";
 import About from "./ChannelSetting_detail/About";
 import Integrations from "./ChannelSetting_detail/Integrations";
@@ -90,7 +89,7 @@ const ChannelSetting = () => {
                                   autoComplete="country-name"
                                   className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                                 >
-                                  <option>United States</option>
+                                  <option>Korea</option>
                                   <option>Canada</option>
                                   <option>Mexico</option>
                                 </select>

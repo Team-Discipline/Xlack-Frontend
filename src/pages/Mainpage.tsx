@@ -2,7 +2,6 @@ import React, { ChangeEvent, DragEvent, useCallback, useEffect, useState } from 
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar/Sidebar";
 import Chat from "../components/Chat/Chat";
-import Logout from "../components/Logout";
 import styled from "styled-components";
 import axios from "axios";
 import { at, AtVerify, backUrl, removeCookie } from "../variable/cookie";
@@ -25,6 +24,7 @@ const Mainpage = () => {
   const OpenChannelSetting = useSelector((state: RootState) => state.OnModal.OnChannelSetting);
   const Workspace = useSelector((state: RootState) => state.getMyWorkSpace.MyWorkSpace);
   const U = useSelector((state: RootState) => state.UnReadChannel.CompleteGetUnreadChannel);
+  const formatArr: string[] = ["JPG", "JPEG", "PNG", "PDF", "TXT", "ZIP", "PY", "C", "TS", "TSX"];
   const GetChatInAllChannel = (Ws: WorkspaceType) => {
     Ws.chat_channel?.forEach(async channel => {
       try {
@@ -100,8 +100,6 @@ const Mainpage = () => {
     setOpenModal(!isOpenModal);
   }, [isOpenModal]);
 
-  const [imageList, setImageList] = useState<Array<File>>([]);
-
   // 이미지 파일 처리 input
   const onInputFile = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -118,7 +116,7 @@ const Mainpage = () => {
   };
   let original_file_name: string;
   let file_name: string;
-  let author: string;
+  let file_id: number;
   const handleFiles = async (files: FileList) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -127,10 +125,9 @@ const Mainpage = () => {
     // @ts-ignore
     for (const element of files) {
       const file: File = element;
-      //FiletobeUpload = file;
-      const format: string = `${file.name.split(".").slice(-1)}`.toUpperCase();
+      const format: string = `${(file.name || "").split(".").slice(-1)}`.toUpperCase();
 
-      if (format === "JPG" || format === "JPEG" || format === "PNG" || format === "PDF" || format === "TXT") {
+      if (formatArr.indexOf(format) > -1) {
         if (file) {
           if ((await AtVerify()) == 200) {
             fileList = [...fileList, file];
@@ -149,9 +146,9 @@ const Mainpage = () => {
               )
               .then(res => {
                 original_file_name = res.data.file;
-                author = res.data.uploaded_by.username;
-                file_name = original_file_name.split("/").slice(-1).toString() + " uploaded by(" + author + ")";
-                console.log(file_name);
+                file_id = res.data.id;
+                //author = res.data.uploaded_by.username;
+                file_name = (original_file_name || "").split("/").slice(-1).toString() + "/" + file_id.toString();
               });
             //dispatch(setFile(element));
             dispatch(setFileName(file_name));
@@ -162,33 +159,29 @@ const Mainpage = () => {
         }
       }
     }
-    if (fileList.length > 0) {
-      setImageList(fileList);
-    }
   };
-  useEffect(() => {
-    if (file_name) {
-      dispatch(setFileName(file_name));
-    }
-  });
+  // useEffect(() => {
+  //   if (file_name) {
+  //     dispatch(setFileName(file_name));
+  //   }
+  // });
   // 없으면 drop 작동안됨
   const dragOver = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
   };
-  useEffect(() => {
-    if (Notification.permission !== "granted") {
-      Notification.requestPermission().then(permission => {
-        if (permission === "granted") {
-          Notifi();
-        } else {
-          window.alert("알림 권한을 설정해주세요");
-        }
-      });
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (Notification.permission !== "granted") {
+  //     Notification.requestPermission().then(permission => {
+  //       if (permission === "granted") {
+  //         Notifi();
+  //       } else {
+  //         window.alert("알림 권한을 설정해주세요");
+  //       }
+  //     });
+  //   }
+  // }, []);
   return (
     <>
-      <Logout />
       <AppBody onDrop={onDropFiles} onDragOver={dragOver}>
         <Header />
         <SelectWorkspaces>
@@ -208,7 +201,6 @@ const Mainpage = () => {
 
 export default Mainpage;
 const SelectWorkspaces = styled.div`
-  display: inline-flex;
   flex-direction: column;
   align-items: center;
   vertical-align: top;
@@ -220,7 +212,7 @@ const SelectWorkspaces = styled.div`
   border-top-width: 1px;
   border-top-color: rgb(73, 39, 75);
   border-right-color: rgb(73, 39, 75);
-  top: 60px;
+  top: 73px;
   position: relative;
   width: 60px;
   align-content: center;

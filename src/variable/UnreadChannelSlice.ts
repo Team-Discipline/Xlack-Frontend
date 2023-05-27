@@ -16,22 +16,26 @@ export const UnReadChannelSlice = createSlice({
   initialState,
   reducers: {
     getChannel: (state, action: PayloadAction<Notification>) => {
-      // const notification = action.payload;
-      //
-      // const isDuplicateNotification = state.UnReadChannel.some(item => {
-      //   return item.channel_hashed_value === notification.channel_hashed_value && item.workspace_hashed_value === notification.workspace_hashed_value;
-      // });
-      //
-      // if (!isDuplicateNotification) {
-      //   // 채널을 읽은 경우 count를 undefined로 설정
-      //   const count = notification.channel_hashed_value ? notification.count : undefined;
-      //
-      state.UnReadChannel.push({
-        channel_hashed_value: action.payload.channel_hashed_value,
-        count: action.payload.count,
-        workspace_hashed_value: action.payload.workspace_hashed_value,
+      const notification = action.payload;
+
+      const isDuplicateNotification = state.UnReadChannel.some(item => {
+        return JSON.stringify(item) === JSON.stringify(notification);
       });
-      // }
+
+      if (!isDuplicateNotification) {
+        // 채널을 읽은 경우 count를 undefined로 설정
+        const count = notification.channel_hashed_value ? notification.count : undefined;
+        state.UnReadChannel.push({
+          channel_hashed_value: notification.channel_hashed_value,
+          count,
+          workspace_hashed_value: notification.workspace_hashed_value,
+        });
+        // state.UnReadChannel.push({
+        //   channel_hashed_value: action.payload.channel_hashed_value,
+        //   count: action.payload.count,
+        //   workspace_hashed_value: action.payload.workspace_hashed_value,
+        // });
+      }
     },
     CompleteGetUnReadChannel: (state, action: PayloadAction<void>) => {
       state.CompleteGetUnreadChannel = true;

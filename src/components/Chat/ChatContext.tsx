@@ -1,11 +1,25 @@
 import styled from "styled-components";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import { ChatType } from "../../types/types";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ChatOption from "./ChatOption";
+import StarIcon from "@mui/icons-material/Star";
 
 function ChatContext(chat: ChatType) {
   const [showChatOption, setShowChatOption] = useState<boolean>(false);
+  const [changedChat, setchangedChat] = useState<string>("");
+  const chatLength = 35;
+  const [tmp, setTmp] = useState<number>(0);
+  const [size, setSize] = useState<number>(chat.message.length);
+  useEffect(() => {
+    if (size !== 0 && chat.message.substring(tmp, tmp + chatLength) !== "") {
+      setchangedChat(changedChat + chat.message.substring(tmp, tmp + chatLength) + "\n");
+      setTmp(tmp + chatLength);
+      setSize(size - chatLength);
+    }
+  }, [changedChat]);
+
+  //일정 글자수가 넘어가면 줄바꿈 됨
   return (
     <div
       onMouseOver={() => {
@@ -19,14 +33,10 @@ function ChatContext(chat: ChatType) {
         <Header>
           <HeaderLeft>
             <h4>
-              <strong>{chat.channel}</strong>
-              <StarBorderOutlinedIcon />
+              {chat.has_bookmarked && <StarIcon />}
+              {!chat.has_bookmarked && <StarBorderOutlinedIcon />}
             </h4>
             <h1>{chat.chatter && chat.chatter.display_name}</h1>
-            <span className="text-sm text-gray-700">
-              {/*{created_at.slice(0, 10)}&nbsp;{created_at.slice(11, 19)}*/}
-              {chat.converted_created_at}
-            </span>
           </HeaderLeft>
           <br></br>
           <HeaderRight>
@@ -38,7 +48,11 @@ function ChatContext(chat: ChatType) {
           </HeaderRight>
         </Header>
         <ChatMessages>
-          <h2>{chat.message}</h2>
+          <h2>{changedChat}</h2>
+          <span className="text-sm text-gray-700">
+            {/*{created_at.slice(0, 10)}&nbsp;{created_at.slice(11, 19)}*/}
+            {chat.converted_created_at}
+          </span>
         </ChatMessages>
         <div>{chat.reactions && chat.reactions.map(item => <div key={chat.id}>{item.icon}</div>)}</div>
       </ChatContainer>
@@ -48,7 +62,17 @@ function ChatContext(chat: ChatType) {
 
 export default ChatContext;
 
-const ChatMessages = styled.div``;
+const ChatMessages = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-left: 20px;
+
+  > span {
+    white-space: nowrap;
+    margin-right: 10px;
+    color: black;
+  }
+`;
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
@@ -65,7 +89,7 @@ const HeaderLeft = styled.div`
   }
 
   > h4 > .MuiSvgIcon-root {
-    margin-left: 20px;
+    margin-left: 10px;
     font-size: 18px;
   }
 `;
@@ -82,8 +106,7 @@ const HeaderRight = styled.div`
   }
 `;
 const ChatContainer = styled.div`
-  background-color: #ede8e8;
-  border: 1px solid black;
+  background-color: white;
   border-radius: 3px;
   flex: 0.7;
   flex-grow: 1;

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ChatChannelType, ChatType, ReactionDataType, ReactionFetchType, WorkspaceType } from "../types/types";
+import { ChatChannelType, ChatType, ReactionFetchType, WorkspaceType } from "../types/types";
 
 interface struct {
   MyWorkSpace: WorkspaceType[];
@@ -18,7 +18,7 @@ const initialState: struct = {
     members: [],
     chat_channel: [],
     hashed_value: "",
-    name: "",
+    name: "Please Select WS",
   },
   SearchedChannel: {
     id: -1,
@@ -141,10 +141,10 @@ export const WorkSpaceSlice = createSlice({
             c.Chats?.forEach(chat => {
               if (Number(chat.id) === reaction.chat_id) {
                 if (reaction.reactors?.length) {
-                  chat.reactions = chat.reactions.filter(reaction => reaction.icon !== reaction.icon);
-                  chat.reactions.push(reaction);
+                  chat.reactions = (chat.reactions || []).filter(reaction => reaction.icon !== reaction.icon);
+                  (chat.reactions || []).push(reaction);
                 } else {
-                  chat.reactions = chat.reactions.filter(reaction => reaction.icon !== reaction.icon);
+                  chat.reactions = (chat.reactions || []).filter(reaction => reaction.icon !== reaction.icon);
                 }
               }
             });

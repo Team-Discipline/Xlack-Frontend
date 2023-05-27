@@ -37,7 +37,7 @@ const DialogBox = styled.dialog`
   top: 135px;
   left: 35px;
   width: 280px;
-  height: 130px;
+  height: auto;
   position: absolute;
   display: block;
   padding: 12px 0;

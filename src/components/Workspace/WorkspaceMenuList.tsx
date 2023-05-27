@@ -6,34 +6,34 @@ function WorkspaceMenuList() {
   const [isHovering, setIsHovering] = useState(0);
   return (
     <MenuList>
-      <div>
-        <Button
-          className="createWork"
-          // onClick={() =>
-          //   (window.location.href = "http://localhost:3000/setTeamName")
-          // }
-        >
-          다른 워크스페이스에 로그인
-        </Button>
-        <Separator></Separator>
-      </div>
+      {/*<div>*/}
+      {/*  <Button*/}
+      {/*    className="createWork"*/}
+      {/*    // onClick={() =>*/}
+      {/*    //   (window.location.href = "http://localhost:3000/setTeamName")*/}
+      {/*    // }*/}
+      {/*  >*/}
+      {/*    다른 워크스페이스에 로그인*/}
+      {/*  </Button>*/}
+      {/*  <Separator></Separator>*/}
+      {/*</div>*/}
       <div>
         <Button className="createWork" onClick={() => (window.location.href = `${xlackUrl}setTeamName`)}>
           새 워크스페이스 개설
         </Button>
         <Separator></Separator>
       </div>
-      <div>
-        <Button
-          className="createWork"
-          // onClick={() =>
-          //   (window.location.href = "http://localhost:3000/setTeamName")
-          // }
-        >
-          워크스페이스 찾기
-        </Button>
-        <Separator></Separator>
-      </div>
+      {/*<div>*/}
+      {/*  <Button*/}
+      {/*    className="createWork"*/}
+      {/*    // onClick={() =>*/}
+      {/*    //   (window.location.href = "http://localhost:3000/setTeamName")*/}
+      {/*    // }*/}
+      {/*  >*/}
+      {/*    워크스페이스 찾기*/}
+      {/*  </Button>*/}
+      {/*  <Separator></Separator>*/}
+      {/*</div>*/}
     </MenuList>
   );
 }

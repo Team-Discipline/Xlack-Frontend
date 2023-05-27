@@ -8,27 +8,30 @@ export function Notifi() {
   const dispatch = useDispatch();
   useEffect(() => {
     setNotifiSocket(new WebSocket(`${WsUrl_notification}`));
-  }, [at]);
-  if (notifiSocket) {
-    notifiSocket.onopen = () => {
-      notifiSocket.send(
-        JSON.stringify({
-          authorization: at,
-        }),
-      );
-    };
-    notifiSocket.onmessage = res => {
-      const unReadChannel = JSON.parse(res.data).notifications;
-      if (unReadChannel !== "undefined" || unReadChannel !== null) {
-        // FIXME: null 값에 할당함
-        Object.keys(unReadChannel).forEach((key: any) => {
-          const setNotifications = unReadChannel;
-          dispatch(getChannel(setNotifications[key]));
-        });
-        dispatch(CompleteGetUnReadChannel());
-      }
-    };
-  }
+  }, [at, setNotifiSocket]);
+  useEffect(() => {
+    if (notifiSocket) {
+      notifiSocket.onopen = () => {
+        notifiSocket.send(
+          JSON.stringify({
+            authorization: at,
+          }),
+        );
+        console.log("알림 웹소켓 연결");
+      };
+      notifiSocket.onmessage = res => {
+        const unReadChannel = JSON.parse(res.data).notifications;
+        if (unReadChannel !== "undefined" || unReadChannel !== null) {
+          Object.keys(unReadChannel || []).forEach((key: any) => {
+            const setNotifications = unReadChannel;
+            console.log("notification에 onmessage", setNotifications[key]);
+            dispatch(getChannel(setNotifications[key]));
+          });
+          dispatch(CompleteGetUnReadChannel());
+        }
+      };
+    }
+  }, [notifiSocket, dispatch]);
 }
 export function showNotification(title: string, message: string) {
   if (!("Notification" in window)) {
