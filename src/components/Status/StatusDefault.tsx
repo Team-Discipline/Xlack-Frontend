@@ -76,18 +76,21 @@ const StatusDefault = () => {
       convertedTime = Number(numTime);
     } else if (splitTime >= 10) {
       numTime = now.setMinutes(now.getMinutes() + splitTime).toString();
-      convertedTime = Number(numTime);
+      convertedTime = Number(new Date(numTime));
     } else {
       numTime = splitTime.toString();
       convertedTime = now.setHours(now.getHours() + Number(numTime));
     }
-    console.log(convertedTime);
+    console.log(new Date(convertedTime));
+    console.log(time);
     return convertedTime;
   };
 
   const handleOnChange_T = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
     formData.append("until", time);
     setTime(convertTime(e.target.value).toString());
+    console.log(convertTime(e.target.value).toString());
+    console.log(time);
   }, []);
 
   for (const element of options) {

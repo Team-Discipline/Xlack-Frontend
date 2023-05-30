@@ -66,45 +66,21 @@ const ChatOption = (chat: ChatType) => {
   const sendReaction = async (sendType: SendReactionType) => {
     const ReactionWs = new WebSocket(`${WsUrl_reaction}${chat_channel_hashed_value}/`);
     if (ReactionWs) {
-      ReactionWs.onopen = () => {
-        setReactionSocket(ReactionWs);
-        ReactionWs.send(
+      ReactionWs.onopen = async () => {
+        await ReactionWs.send(
           JSON.stringify({
             authorization: at,
           }),
         );
-        ReactionWs.send(
+        await ReactionWs.send(
           JSON.stringify({
             mode: sendType.mode,
             icon: sendType.icon,
             chat_id: sendType.chat_id,
           }),
         );
-        ReactionWs.onmessage = res => {
-          const data = JSON.parse(res.data);
-          const reactionData = data?.reaction;
-          //console.log("reaction Data " + JSON.stringify(data));
-          if (reactionData) {
-            dispatch(
-              UpdateReactionChatType2({
-                channel_hashed_value: chat_channel_hashed_value,
-                chat_id: reactionData.chat_id,
-                icon: reactionData.icon,
-                reactors: reactionData.reactors,
-              }),
-            );
-            dispatch(
-              saveReaction({
-                channel_hashed_value: chat_channel_hashed_value,
-                chat_id: reactionData.chat_id,
-                icon: reactionData.icon,
-                reactors: reactionData.reactors,
-              }),
-            );
-          }
-        };
+        await ReactionWs.close();
       };
-      setReactionSocket(ReactionWs);
     }
   };
 

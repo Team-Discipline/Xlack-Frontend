@@ -76,7 +76,8 @@ const ChatInput = (props: ChatInputProps) => {
           const m = JSON.parse(message.data);
           if (m.message !== undefined && notifiSetting == true) {
             if (m.user_id !== MyProfile.id) {
-              showNotification(m.username, m.message);
+              console.log(m.ch_hv);
+              showNotification(dispatch, m.username, m.message, m.chat_channel_name, m.chat_channel_hashed_value);
             }
           }
           dispatch(findUserDataInClickedChannel(m.user_id));
@@ -115,7 +116,7 @@ const ChatInput = (props: ChatInputProps) => {
         const nm = JSON.parse(message.data);
         if (nm.message !== undefined && notifiSetting == true) {
           if (nm.user_id !== MyProfile.id) {
-            showNotification(nm.username, nm.message);
+            showNotification(dispatch, nm.username, nm.message, nm.chat_channel_name, nm.chat_channel_hashed_value);
           }
         }
         dispatch(findUserDataInClickedChannel(nm.user_id));

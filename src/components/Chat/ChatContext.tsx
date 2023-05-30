@@ -1,13 +1,17 @@
 import styled from "styled-components";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
-import { ChatType } from "../../types/types";
-import React, { useState } from "react";
+import { ChatType, ReactionDataType } from "../../types/types";
+import React, { useEffect, useState } from "react";
 import ChatOption from "./ChatOption";
 import StarIcon from "@mui/icons-material/Star";
+import { findUserDataInClickedChannel } from "../../variable/ClickedChannelSlice";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/store";
 
 function ChatContext(chat: ChatType) {
   const [showChatOption, setShowChatOption] = useState<boolean>(false);
-  //일정 글자수가 넘어가면 줄바꿈 됨
+  const [isHover, setHover] = useState<boolean>(false);
+
   return (
     <div
       onMouseOver={() => {
@@ -42,7 +46,25 @@ function ChatContext(chat: ChatType) {
             {chat.converted_created_at}
           </span>
         </ChatMessages>
-        <div>{chat.reactions && chat.reactions.map(item => <div key={chat.id}>{item.icon}</div>)}</div>
+        <div>
+          {chat.reactions &&
+            chat.reactions.map(item => (
+              <ReactionContainer
+                key={chat.id}
+                onMouseOver={() => {
+                  setHover(true);
+                }}
+                onMouseDown={() => {
+                  setHover(false);
+                }}
+              >
+                {item.icon}
+                {item.reactors.length}
+                {/*{isHover ? reactorData.display_name : ""}*/}
+                {isHover ? "reactor" : ""}
+              </ReactionContainer>
+            ))}
+        </div>
       </ChatContainer>
     </div>
   );
@@ -99,4 +121,19 @@ const ChatContainer = styled.div`
   flex: 0.7;
   flex-grow: 1;
   margin-top: 60px;
+`;
+
+const ReactionContainer = styled.span`
+  display: inline-block;
+  text-align: center;
+  background-color: rgba(206, 205, 205, 0.51);
+  width: 40px;
+  padding-bottom: 2px;
+  margin-left: 15px;
+  border-radius: 10px;
+  color: rgba(51, 51, 51, 0.86);
+  :hover {
+    text-align: left;
+    width: 100px;
+  }
 `;

@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { at, WsUrl_notification } from "../../variable/cookie";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CompleteGetUnReadChannel, getChannel } from "../../variable/UnreadChannelSlice";
+import { setClickedChannel } from "../../variable/ClickedChannelSlice";
+import { Dispatch } from "redux";
+import { focusChannelByHv } from "../../variable/WorkSpaceSlice";
 
 export function Notifi() {
   const [notifiSocket, setNotifiSocket] = useState<WebSocket>();
@@ -32,7 +35,10 @@ export function Notifi() {
   }, [notifiSocket, dispatch]);
 }
 
-export function showNotification(title: string, message: string) {
+export function showNotification(dispatch: Dispatch, title: string, message: string, chat_channel_name: string, chat_channel_hashed_value: any) {
+  const handleNotificationClick = () => {
+    dispatch(focusChannelByHv(chat_channel_hashed_value));
+  };
   if (!("Notification" in window)) {
     console.error("This browser does not support desktop notification");
     return;
@@ -40,21 +46,28 @@ export function showNotification(title: string, message: string) {
   // 사용자가 알림 권한을 허용했는지 확인합니다.
   if (Notification.permission === "granted") {
     // 알림을 생성합니다.
-    const notification = new Notification(title, {
-      body: message,
+    const notification = new Notification(`sender: ${title}`, {
+      body: `channel: ${chat_channel_name} 
+message: ${message}`,
       // position: message,
       icon: "/path/to/icon.png",
       dir: "rtl",
     });
+    notification.onclick = () => {
+      handleNotificationClick();
+    };
   } else if (Notification.permission !== "denied") {
     // 알림 권한이 없는 경우 권한을 요청합니다.
     Notification.requestPermission().then(permission => {
       if (permission === "granted") {
         // 알림을 생성합니다.
-        const notification = new Notification(title, {
-          body: message,
-          icon: "/path/to/icon.png",
+        const notification = new Notification(`sender: ${title}`, {
+          body: `channel: ${chat_channel_name} 
+message: ${message}`,
         });
+        notification.onclick = () => {
+          handleNotificationClick();
+        };
       }
     });
   }

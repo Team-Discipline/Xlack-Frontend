@@ -38,7 +38,7 @@ const ProfileMenu = () => {
               <a className="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600" role="menuitem">
                 <span className="flex flex-col">
                   <Status>
-                    {MyStatus.status_icon} {new Date(MyStatus.until.toString()).toString()}
+                    {MyStatus.status_icon} {JSON.stringify(new Date(MyStatus.until))}
                   </Status>
                 </span>
               </a>

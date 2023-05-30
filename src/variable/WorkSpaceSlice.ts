@@ -6,6 +6,7 @@ interface struct {
   rightClicked_channel_hashed_value: string;
   ClickedWorkSpace: WorkspaceType;
   SearchedChannel: ChatChannelType;
+  RedirectChannel: ChatChannelType | null;
   CompletegetWorkspace: boolean;
 }
 
@@ -29,6 +30,7 @@ const initialState: struct = {
     members: [],
     admins: [],
   },
+  RedirectChannel: null,
   CompletegetWorkspace: false,
 };
 
@@ -88,6 +90,22 @@ export const WorkSpaceSlice = createSlice({
           }
         });
       });
+    },
+    focusChannelByHv: (state, action: PayloadAction<string>) => {
+      const hv = action.payload; // hashed value of channel
+      state.ClickedWorkSpace = initialState.ClickedWorkSpace;
+      //해당 value의 채널이 없을 시 초기값을 넣기 위해 초기화
+      state.MyWorkSpace.forEach(w => {
+        w.chat_channel?.forEach(channel => {
+          if (channel.hashed_value === hv) {
+            state.RedirectChannel = channel;
+            state.ClickedWorkSpace = w;
+          }
+        });
+      });
+    },
+    removeRedirectChannel: (state, action: PayloadAction<void>) => {
+      state.RedirectChannel = null;
     },
     rightClick_channel: (state, action: PayloadAction<string>) => {
       state.rightClicked_channel_hashed_value = action.payload;
@@ -169,5 +187,7 @@ export const {
   SearchChannelInAll,
   EditChatBookmark,
   UpdateReactionChatType2,
+  focusChannelByHv,
+  removeRedirectChannel,
 } = WorkSpaceSlice.actions;
 export default WorkSpaceSlice.reducer;

@@ -16,6 +16,7 @@ import PlusModal from "../components/Workspace/PlusModal";
 import ChannelSetting from "../components/Channel/ChannelSetting";
 import { setFileName } from "../variable/ChatSlice";
 import { Notifi } from "../components/Notification/notification";
+import ReactionListener from "../components/Channel/ReactionListener";
 
 const Mainpage = () => {
   const dispatch = useDispatch();
@@ -190,6 +191,7 @@ const Mainpage = () => {
         </SelectWorkspaces>
         <Sidebar />
         <Profile />
+        <ReactionListener />
         {OpenChannelSetting && <ChannelSetting />}
         {U && <Chat />}
       </AppBody>

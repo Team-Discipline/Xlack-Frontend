@@ -9,7 +9,7 @@ import { RootState } from "../../app/store";
 import ChannelMenu from "../Channel/ChannelMenu";
 import { setClickedChannel, setClickedChannel_hv, setUnClickedChannel } from "../../variable/ClickedChannelSlice";
 import Channel from "../Channel/Channel";
-import { CallClickedWorkSpace, rightClick_channel, SearchChannel } from "../../variable/WorkSpaceSlice";
+import { CallClickedWorkSpace, removeRedirectChannel, rightClick_channel, SearchChannel } from "../../variable/WorkSpaceSlice";
 import { setClickBookmarkPage } from "../../variable/ChatBookmarkSlice";
 
 function Sidebar() {
@@ -25,7 +25,7 @@ function Sidebar() {
   const channelMenuRef = useRef<HTMLDivElement>(null);
   const currentWorkspace = useSelector((state: RootState) => state.getMyWorkSpace.ClickedWorkSpace);
   const currentChannel_hv = useSelector((state: RootState) => state.ClickedChannel.channel_hv);
-
+  const redirectToChannel = useSelector((s: RootState) => s.getMyWorkSpace.RedirectChannel);
   useEffect(() => {
     if (window.localStorage.getItem("history") !== null) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -44,6 +44,12 @@ function Sidebar() {
     setshowChannelMenu(false);
   }, [currentWorkspace.hashed_value]);
 
+  useEffect(() => {
+    if (redirectToChannel) {
+      dispatch(setClickedChannel(redirectToChannel));
+      dispatch(removeRedirectChannel());
+    }
+  });
   useEffect(() => {
     // channelMenuRef 를 이용해 이외의 영역이 클릭되면 채널메뉴 없애기
     function handleClickOutside(e: MouseEvent): void {

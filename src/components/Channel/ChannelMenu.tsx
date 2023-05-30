@@ -4,11 +4,12 @@ import styled from "styled-components";
 import { RootState } from "../../app/store";
 import { Update } from "../../variable/UpdateChannelSlice";
 import axios from "axios";
-import { at, backUrl } from "../../variable/cookie";
+import { at, AtVerify, backUrl, removeCookie, UpdateToken } from "../../variable/cookie";
 import { ChannelSettingOnOff } from "../../variable/OnModalSlice";
 
 const ChannelMenu = (props: any) => {
   const currentWorkspace = useSelector((state: RootState) => state.getMyWorkSpace);
+  const MyUser = useSelector((state: RootState) => state.getMyProfile.userData);
   const dispatch = useDispatch();
   const editChannelName = async () => {
     try {
@@ -37,21 +38,25 @@ const ChannelMenu = (props: any) => {
   };
 
   const exitChannel = async () => {
-    // // 내 토큰으로 접근 되는 채널중 채널id 값의 채널 삭제
-    //
-    // console.log("exit test");
-    //
-    // try {
-    //   await axios.delete(`${backUrl}channel/${ClickedChannel.hashed_value}/`, {
-    //     headers: {
-    //       Authorization: `Bearer ${at}`,
-    //     },
-    //   });
-    // } catch (err) {
-    //   console.log(err);
-    // }
-    //
-    // dispatch(Update());
+    if ((await AtVerify()) == 200) {
+      try {
+        await axios.delete(`${backUrl}channel/${currentWorkspace.ClickedWorkSpace.hashed_value}/${currentWorkspace.rightClicked_channel_hashed_value}/members/${MyUser.username}/`, {
+          headers: {
+            Authorization: `Bearer ${at}`,
+          },
+        });
+        window.alert("채널 나가기 성공");
+        // 유저가 행동을 한다는 것 이므로 토큰 새로받아줌
+        UpdateToken();
+      } catch (err) {
+        window.alert("권한이 없습니다.");
+        console.log(err);
+      }
+    } else {
+      // 행동할 때만 유지시키기 위해서 이미 만료됐으면 재로그인
+      removeCookie();
+    }
+    dispatch(Update());
   };
 
   return (
