@@ -1,14 +1,13 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { RootState } from "../../app/store";
 import { UpdateChat } from "../../variable/UpdateChatContextSlice";
 import { findUserDataInClickedChannel } from "../../variable/ClickedChannelSlice";
-import { at, backUrl, WsUrl_chat } from "../../variable/cookie";
+import { at, WsUrl_chat } from "../../variable/cookie";
 import ChatMentionModal from "./ChatMentionModal";
 import { showNotification } from "../Notification/notification";
 import { SocketReceiveChatType } from "../../types/types";
-import axios from "axios";
 
 type ChatInputProps = {
   receive: (ch_hv: string, data: SocketReceiveChatType) => void;
@@ -32,7 +31,6 @@ const ChatInput = (props: ChatInputProps) => {
   const MyProfile = useSelector((state: RootState) => state.getMyProfile.userData);
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log("1");
     if (CompleteGetWorkspace) {
       Myworkspace.forEach(w => {
         w.chat_channel?.forEach(c => {
@@ -125,7 +123,6 @@ const ChatInput = (props: ChatInputProps) => {
     });
   }, [notifi]);
   useEffect(() => {
-    console.log("4");
     if (socket) {
       socket.send(
         JSON.stringify({
@@ -136,7 +133,6 @@ const ChatInput = (props: ChatInputProps) => {
   }, [File_name]);
   const sendMessage = (event: { preventDefault: () => void }) => {
     event.preventDefault();
-    console.log(socket);
     if (socket && msg !== "") {
       socket.send(
         JSON.stringify({
@@ -173,7 +169,6 @@ const ChatInput = (props: ChatInputProps) => {
                 // 모달 띄우고 클릭시 해당 문구 앞에 추가
                 setMentionName(v.trim());
                 setShowMentionModal(true);
-                console.log("call mention");
               } else {
                 setShowMentionModal(false);
               }

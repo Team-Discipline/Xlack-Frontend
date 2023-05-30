@@ -7,10 +7,14 @@ import "react-dropdown/style.css";
 import styled from "styled-components";
 import { Paper } from "@material-ui/core";
 import StatusDefault from "./StatusDefault";
+import { at, WsUrl_status } from "../../variable/cookie";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/store";
 
 const StatusPanel = () => {
   const [open, setOpen] = React.useState(false);
   const [opendefault, setDefault] = React.useState(false);
+  const MyStatus = useSelector((state: RootState) => state.setStatus.statusData);
 
   const handleClickToOpen = async () => {
     setOpen(true);
@@ -19,13 +23,15 @@ const StatusPanel = () => {
     setDefault(true);
   };
 
-  const handleToClose = async () => {
-    setOpen(false);
-  };
-
   return (
     <div>
-      <ProfileButton onClick={handleClickToOpen}>Set a status</ProfileButton>
+      <ProfileButton
+        onClick={() => {
+          handleClickToOpen();
+        }}
+      >
+        Set a status
+      </ProfileButton>
       <Dialog
         disableEnforceFocus
         fullWidth={true}
@@ -75,7 +81,12 @@ const StyledPaper = styled(Paper)`
     padding: 15px;
   }
 `;
-
+const Status = styled.span`
+  border-bottom: 1px solid #49274b;
+  border-radius: 10px;
+  background-color: white;
+  color: black;
+`;
 const DefaultButton = styled.button`
   width: 600px;
   height: 40px;

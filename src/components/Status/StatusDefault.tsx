@@ -11,7 +11,7 @@ import { Paper } from "@material-ui/core";
 import { setStatus } from "../../variable/StatusSlices";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
-import { WsUrl_status } from "../../variable/cookie";
+import { AtVerify, WsUrl_status } from "../../variable/cookie";
 import { at } from "../../variable/cookie";
 
 // import EmojiPicker from "emoji-picker-react";
@@ -20,63 +20,74 @@ const StatusDefault = () => {
   const MyStatus = useSelector((state: RootState) => state.setStatus.statusData);
   const formData = new FormData();
   const dispatch = useDispatch();
-  const [socket, setsocket] = useState<WebSocket>();
   const [open, setOpen] = useState(false);
   const [openStatus, SetopenStatus] = useState(false);
-  const [status, setStatus] = useState(MyStatus.status_message);
+  const [message, setMessage] = useState(MyStatus.status_message);
   const [time, setTime] = useState(MyStatus.until);
   const [emoji, setEmoji] = useState(MyStatus.status_icon);
   const workspaceHV = useSelector((state: RootState) => state.getMyWorkSpace.ClickedWorkSpace).hashed_value;
-  // const [chosenEmoji, setChosenEmoji] = useState();
-  const Statusbtns = [];
   const Options = [];
   const Times = [];
   const options = ["📆 In a meeting", "🚗 Communicating", "🤒 Sick", "🌴 Vacationing", "🖥️ Working remotely"];
-  const times = ["Don't Erase", "30 minute", "1 hour", "4 hour", "Today", "This week", "Choose date"];
+  const times = ["10 minutes", "30 minutes", "1 hour", "2 hours", "3 hours", "4 hours", "6 hours", "Today"];
+  const [statusSocket, setStatusSocket] = useState<WebSocket>();
 
-  useEffect(() => {
-    if (socket) socket.close();
-    if (workspaceHV !== "") {
-      setsocket(new WebSocket(`${WsUrl_status}${workspaceHV}/`));
-    }
-  }, [workspaceHV]);
+  const sendStatus = (event: { preventDefault: () => void }) => {
+    setOpen(false);
+    event.preventDefault();
+    const statusWS = new WebSocket(`${WsUrl_status}${workspaceHV}/`);
+    dispatch(setStatus({ status_message: message, status_icon: emoji, until: time }));
 
-  useEffect(() => {
-    if (socket) {
-      socket.onopen = () => {
-        socket.send(
+    if (statusWS) {
+      statusWS.onopen = async () => {
+        setStatusSocket(statusWS);
+        statusWS.send(
           JSON.stringify({
             authorization: at,
           }),
         );
+        statusWS.send(
+          JSON.stringify({
+            status_message: message,
+            status_icon: emoji,
+            until: new Date(time).toString(),
+          }),
+        );
+        statusWS.onmessage = res => {
+          const data = res.data;
+          console.log(data);
+        };
       };
     }
-  }, [socket]);
-  const sendStatus = (event: { preventDefault: () => void }) => {
-    setOpen(false);
-    event.preventDefault();
-    if (socket) {
-      socket.send(
-        JSON.stringify({
-          status_message: status,
-          status_icon: emoji,
-          until: time,
-        }),
-      );
-    }
   };
-
   const handleOnChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    formData.append("status_message", status);
-    // console.log(e.target.value);
-    setStatus(e.target.value);
+    formData.append("status_message", message);
+    setMessage(e.target.value);
     setEmoji(e.target.value.slice(0, 2));
   }, []);
 
+  const convertTime = (time: string) => {
+    const now = new Date();
+    let numTime: string;
+    const splitTime = Number(time.split(" ")[0]);
+    let convertedTime: number;
+    if (isNaN(splitTime)) {
+      numTime = now.setHours(now.getHours() + 24).toString();
+      convertedTime = Number(numTime);
+    } else if (splitTime >= 10) {
+      numTime = now.setMinutes(now.getMinutes() + splitTime).toString();
+      convertedTime = Number(numTime);
+    } else {
+      numTime = splitTime.toString();
+      convertedTime = now.setHours(now.getHours() + Number(numTime));
+    }
+    console.log(convertedTime);
+    return convertedTime;
+  };
+
   const handleOnChange_T = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
     formData.append("until", time);
-    // console.log(e.target.value);
-    setTime(e.target.value);
+    setTime(convertTime(e.target.value).toString());
   }, []);
 
   for (const element of options) {
@@ -109,7 +120,7 @@ const StatusDefault = () => {
       </button>
       <StatusDiv
         placeholder={"🙂What is your Status"}
-        value={status}
+        value={message}
         onClick={() => {
           setOpen(true);
         }}
@@ -130,7 +141,7 @@ const StatusDefault = () => {
         <DialogContent>
           <DialogContentText>Manual</DialogContentText>
         </DialogContent>
-        <StatusSelect id="status" defaultValue={status} onChange={handleOnChange}>
+        <StatusSelect id="status" defaultValue={message} onChange={handleOnChange}>
           {OptionMap}
         </StatusSelect>
         <br />

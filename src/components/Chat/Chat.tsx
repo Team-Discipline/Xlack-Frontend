@@ -52,20 +52,17 @@ const Chat = () => {
         });
       });
       setGetChatData(c);
-      console.log(c);
     } catch (err) {
       console.log("receiveChatBookmarkError: ", err);
     }
   };
   useEffect(() => {
     if (lastChat !== "-1") {
-      console.log("최근 받은 메세지", lastChat);
       //웹소켓으로 받는 데이터로 Chat을 만들어 getChatData에 추가시키기
       setGetChatData([MakeChatDataFromLastChat(lastChat), ...getChatData]);
     }
   }, [lastChat]);
   useEffect(() => {
-    console.log("저장된 채널:", Clicked_channel);
     if (Clicked_channel) setGetChatData(Clicked_channel.Chats);
   }, [Clicked_channel, UpdateBookmark]);
 
@@ -77,13 +74,11 @@ const Chat = () => {
   //채널 들어갔을 때 notification 웹소켓으로 받아온 데이터 삭제
   useEffect(() => {
     dispatch(deleteChannel(Clicked_channel_hashedValue));
-    // console.log("delete", notifi, Clicked_channel_hashedValue);
   }, [Clicked_channel_hashedValue]);
   useEffect(() => {
     if (UpdateChannel.lastDeleteChannel_hv === Clicked_channel.hashed_value) setGetChatData([]);
   }, [UpdateChannel.lastDeleteChannel_hv]);
   useEffect(() => {
-    console.log("저장된 채널:", Clicked_channel);
     if (Clicked_channel) setGetChatData(Clicked_channel.Chats);
     const webSocket = new WebSocket(`${WsUrl_notification}`);
     webSocket.onopen = () => {
@@ -151,20 +146,19 @@ const Chat = () => {
 
   const ReceiveLastChat = (ch_hv: string, r: SocketReceiveChatType) => {
     try {
-      console.log("ReceiveLasChat발동", r.message);
-      dispatch(AppendChat([ch_hv, MakeChatDataFromLastChat(r)]));
+      if (r.chat_id != undefined) {
+        dispatch(AppendChat([ch_hv, MakeChatDataFromLastChat(r)]));
+      }
+
       //최근에 받아온 데이터를 redux에 저장한 channel의 챗에 추가
       if (ch_hv === Clicked_channel.hashed_value) {
         setLastChat(r);
-        // console.log("너는 뭐냐", r);
       }
       //새로 온 메세지가 지금 보고 있는 채널이면 바로 갱신
-      console.log(MyWorkspace);
     } catch (err) {
       console.log("ReceiveLastChatError: ", err);
     }
     //새로 온 메세지가 지금 보고 있는 채널이면 바로 갱신
-    console.log(MyWorkspace);
   };
 
   const scrollToBottom = () => {
@@ -176,7 +170,6 @@ const Chat = () => {
   };
   useEffect(() => {
     scrollToBottom();
-    setInterval(scrollToBottom, 1000);
   }, [getChatData, receiveMessage]); //새로운 문자가 송신되어 receiveMessage가 true가 되면 챗 정보들 불러옴
   return (
     <ChatContainer>

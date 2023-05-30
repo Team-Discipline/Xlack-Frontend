@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { at, WsUrl_notification } from "../../variable/cookie";
 import { useDispatch } from "react-redux";
-import { getChannel, CompleteGetUnReadChannel } from "../../variable/UnreadChannelSlice";
+import { CompleteGetUnReadChannel, getChannel } from "../../variable/UnreadChannelSlice";
 
 export function Notifi() {
   const [notifiSocket, setNotifiSocket] = useState<WebSocket>();
@@ -17,14 +17,12 @@ export function Notifi() {
             authorization: at,
           }),
         );
-        console.log("알림 웹소켓 연결");
       };
       notifiSocket.onmessage = res => {
         const unReadChannel = JSON.parse(res.data).notifications;
         if (unReadChannel !== "undefined" || unReadChannel !== null) {
           Object.keys(unReadChannel || []).forEach((key: any) => {
             const setNotifications = unReadChannel;
-            console.log("notification에 onmessage", setNotifications[key]);
             dispatch(getChannel(setNotifications[key]));
           });
           dispatch(CompleteGetUnReadChannel());
@@ -33,6 +31,7 @@ export function Notifi() {
     }
   }, [notifiSocket, dispatch]);
 }
+
 export function showNotification(title: string, message: string) {
   if (!("Notification" in window)) {
     console.error("This browser does not support desktop notification");

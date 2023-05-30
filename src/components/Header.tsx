@@ -16,6 +16,8 @@ function Header() {
   const MyUser = useSelector((state: RootState) => state.getMyProfile.userData);
   const historyMenuRef = useRef<HTMLDivElement>(null);
   const profileMenuRef = useRef<HTMLDivElement>(null);
+  const MyStatus = useSelector((state: RootState) => state.setStatus.statusData);
+
   useEffect(() => {
     // historyMenuRef 를 이용해 이외의 영역이 클릭되면 채널메뉴 없애기
     function handleClickOutside(e: MouseEvent): void {
@@ -74,6 +76,7 @@ function Header() {
       {/* {Header Right} */}
       <HeaderRight>
         <HelpOutlineIcon />
+        {MyStatus.status_icon}
         <HeaderAvatar
           ref={profileMenuRef}
           src={MyUser.profile_image}

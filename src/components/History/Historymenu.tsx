@@ -38,7 +38,6 @@ const Historymenu = (props: any) => {
     if (search_channel.name === ClickedHistoryChannelName) {
       dispatch(setClickedChannel(search_channel));
     }
-    console.log(search_channel);
     if (!MenuOpen) {
       if (search_channel.id === -2) {
         deleteObject(ClickedHistoryChannelName);

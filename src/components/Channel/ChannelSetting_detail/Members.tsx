@@ -19,6 +19,7 @@ const Members = () => {
   const [showOption, setShowOption] = useState(-1);
   const [showOptionMenu, setShowOptionMenu] = useState(false);
   const [showAddUserModal, setShowAddUserModal] = useState(false);
+  const MyUser = useSelector((state: RootState) => state.getMyProfile.userData);
   const closeAddUserModal = () => {
     setShowAddUserModal(false);
   };
@@ -67,14 +68,17 @@ const Members = () => {
                 </div>
                 {showOption === i && (
                   <>
-                    <Button
-                      className="bg-white"
-                      onClick={() => {
-                        setShowOptionMenu(true);
-                      }}
-                    >
-                      ...
-                    </Button>
+                    {member.username != MyUser.username && (
+                      <Button
+                        className="bg-white"
+                        onClick={() => {
+                          setShowOptionMenu(true);
+                        }}
+                      >
+                        ...
+                      </Button>
+                    )}
+
                     {showOptionMenu && (
                       <span
                         onMouseLeave={() => {
@@ -198,6 +202,27 @@ const MemberOption = (props: any) => {
     }
     dispatch(Update());
   };
+  // const RemoveManager = async (UserName: string) => {
+  //   if ((await AtVerify()) == 200) {
+  //     try {
+  //       const d = await axios.post(`${backUrl}channel/${currentWorkspace.hashed_value}/${AboutChannel.hashed_value}/admins/${UserName}`, {
+  //         headers: {
+  //           Authorization: `Bearer ${at}`,
+  //         },
+  //       });
+  //       window.alert("어드민 제거");
+  //       // 유저가 행동을 한다는 것 이므로 토큰 새로받아줌
+  //       UpdateToken();
+  //     } catch (err) {
+  //       window.alert("권한이 없습니다.");
+  //       console.log(err);
+  //     }
+  //   } else {
+  //     // 행동할 때만 유지시키기 위해서 이미 만료됐으면 재로그인
+  //     removeCookie();
+  //   }
+  //   dispatch(Update());
+  // };
   const MakeManager = async (UserName: string) => {
     if ((await AtVerify()) == 200) {
       try {
@@ -234,19 +259,26 @@ const MemberOption = (props: any) => {
                 className="flex flex-col"
                 onClick={() => {
                   MakeManager(props.username);
-                  console.log("make manager");
                 }}
               >
                 <span>Make channel manager</span>
               </span>
             </a>
-
+            {/*<a className="block block px-4 py-2 text-md text-blue-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600" role="menuitem">*/}
+            {/*  <span*/}
+            {/*    className="flex flex-col"*/}
+            {/*    onClick={() => {*/}
+            {/*      RemoveManager(props.username);*/}
+            {/*    }}*/}
+            {/*  >*/}
+            {/*    <span>Remove channel manager</span>*/}
+            {/*  </span>*/}
+            {/*</a>*/}
             <a className="block block px-4 py-2 text-md text-blue-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600" role="menuitem">
               <span
                 className="flex flex-col"
                 onClick={() => {
                   RemoveUser(props.username);
-                  console.log("remove user");
                 }}
               >
                 <span>Remove from channel</span>
@@ -326,7 +358,6 @@ const AddUserModal = (props: any) => {
                       <Button
                         onClick={() => {
                           AddUsertoChannel();
-                          console.log(EditInput);
                         }}
                       >
                         Add

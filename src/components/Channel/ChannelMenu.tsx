@@ -12,19 +12,25 @@ const ChannelMenu = (props: any) => {
   const dispatch = useDispatch();
   const editChannelName = async () => {
     try {
-      const newChannelName: string | null = prompt("Please enter the channel name");
-      await axios.patch(
-        `${backUrl}channel/${currentWorkspace.ClickedWorkSpace.hashed_value}/${currentWorkspace.rightClicked_channel_hashed_value}/`,
-        {
-          name: newChannelName,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${at}`,
-          },
-        },
-      );
-      dispatch(Update());
+      const newChannelName: string | null = prompt("Please enter the channel name(2-10)");
+      if (newChannelName) {
+        if (newChannelName.length < 2 || newChannelName.length > 10) {
+          window.alert("채널이름이 적절하지 않습니다.");
+        } else {
+          await axios.patch(
+            `${backUrl}channel/${currentWorkspace.ClickedWorkSpace.hashed_value}/${currentWorkspace.rightClicked_channel_hashed_value}/`,
+            {
+              name: newChannelName,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${at}`,
+              },
+            },
+          );
+          dispatch(Update());
+        }
+      }
     } catch (err) {
       console.log(err);
     }
@@ -51,7 +57,6 @@ const ChannelMenu = (props: any) => {
   return (
     <>
       <Menu>
-        <h3>분활 화면으로 열기</h3>
         <h3
           onClick={() => {
             dispatch(ChannelSettingOnOff());
@@ -59,10 +64,6 @@ const ChannelMenu = (props: any) => {
         >
           채널 세부정보로 보기
         </h3>
-        <h3>복사</h3>
-        <h3>채널 음소거</h3>
-        <h3>알림변경</h3>
-        <h3>채널을 즐겨찾기에 추가</h3>
         <h3 onClick={editChannelName}>채널이름 바꾸기</h3>
         <h3 onClick={exitChannel}>나가기</h3>
       </Menu>

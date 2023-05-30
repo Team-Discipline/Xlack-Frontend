@@ -11,28 +11,39 @@ function AddChannel({ Icon, title, id }: SidebarInfo) {
   const currentWorkspace = useSelector((state: RootState) => state.getMyWorkSpace.ClickedWorkSpace);
   const addChannel = async () => {
     try {
-      const channelName: string | null = prompt("Please enter the channel name");
-
+      const channelName: string | null = prompt("Please enter the channel name(2-10)");
       if (channelName) {
-        // db에 name: channelName 방추가
-        await axios
-          .post(
-            `${backUrl}channel/${currentWorkspace.hashed_value}/`,
-            {
-              name: channelName,
-              description: "",
-            },
-            {
-              headers: {
-                Authorization: `Bearer ${at}`,
-              },
-            },
-          )
-          .then(res => {
-            dispatch(ConnectWebSocketAddedChannel(res.data.hashed_value));
+        if (currentWorkspace.chat_channel) {
+          currentWorkspace.chat_channel.forEach(c => {
+            if (c.name === channelName) {
+              window.alert("이미 존재하는 채널이름입니다.");
+            }
           });
+        } else {
+          if (channelName.length < 2 || channelName.length > 10) {
+            window.alert("채널의 이름이 적절하지 않습니다.");
+          } else {
+            // db에 name: channelName 방추가
+            await axios
+              .post(
+                `${backUrl}channel/${currentWorkspace.hashed_value}/`,
+                {
+                  name: channelName,
+                  description: "",
+                },
+                {
+                  headers: {
+                    Authorization: `Bearer ${at}`,
+                  },
+                },
+              )
+              .then(res => {
+                dispatch(ConnectWebSocketAddedChannel(res.data.hashed_value));
+              });
 
-        dispatch(Update());
+            dispatch(Update());
+          }
+        }
       }
     } catch (err) {
       window.alert("권한이 없습니다");

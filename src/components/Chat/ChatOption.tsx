@@ -6,11 +6,10 @@ import axios from "axios";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBookmarkPage } from "../../variable/ChatBookmarkSlice";
-import { ClickBookMark } from "../../variable/ClickedChannelSlice";
+import { ClickBookMark, saveReaction } from "../../variable/ClickedChannelSlice";
 import { EditChatBookmark, UpdateReactionChatType2 } from "../../variable/WorkSpaceSlice";
 import { RootState } from "../../app/store";
 import downloadFile from "../fileDownload";
-
 const ChatOption = (chat: ChatType) => {
   const [showDetail, setShowDetail] = useState<number>(-1);
   const chat_channel_hashed_value = useSelector((state: RootState) => state.ClickedChannel.channelData.hashed_value);
@@ -94,6 +93,14 @@ const ChatOption = (chat: ChatType) => {
                 reactors: reactionData.reactors,
               }),
             );
+            dispatch(
+              saveReaction({
+                channel_hashed_value: chat_channel_hashed_value,
+                chat_id: reactionData.chat_id,
+                icon: reactionData.icon,
+                reactors: reactionData.reactors,
+              }),
+            );
           }
         };
       };
@@ -102,14 +109,11 @@ const ChatOption = (chat: ChatType) => {
   };
 
   function ReactionLogic(clickedIcon: string, cid: number) {
-    if (clickedIcon !== null) {
+    if ((chat.reactions || "").length === 0) {
       //리액션이 없을때 새로운 리액션을 추가
       sendReaction({ mode: "create", icon: clickedIcon, chat_id: cid });
-      //console.log(chat.reactions);
-      //dispatch(UpdateReactionChat([chat_channel_hashed_value, { chat_id: cid, icon: clickedIcon, reactors: [] }]));
     } else {
       // 리액션이 있을때 같은 리액션을 누르면 삭제
-      //dispatch(RemoveReactionChat([chat_channel_hashed_value, { chat_id: cid, icon: clickedIcon, reactors: [] }]));
       sendReaction({ mode: "delete", icon: clickedIcon, chat_id: cid });
     }
   }

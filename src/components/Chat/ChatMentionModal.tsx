@@ -19,7 +19,6 @@ const ChatMentionModal = (props: MentionProps) => {
 
   useEffect(() => {
     const MentionName = props.inputMsg;
-    console.log(props);
     if (MentionName.length == 1) {
       setCallingMentionArr(props.CalleverDataArr);
     } else {

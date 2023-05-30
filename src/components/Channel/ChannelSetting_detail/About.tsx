@@ -75,7 +75,7 @@ const EditDescriptionModal = (props: any) => {
               <div className="mt-5 md:col-span-2 md:mt-0">
                 <div className="overflow-hidden shadow sm:rounded-md">
                   <div className="bg-white py-5 sm:p-6">
-                    설명 수정할 인풋 공간
+                    채널에 대해 설명해주세요!
                     <hr />
                     <textarea
                       style={{ width: 500, height: 250 }}

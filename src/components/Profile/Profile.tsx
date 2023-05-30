@@ -164,7 +164,6 @@ const Profile = () => {
       </Transition.Root>
       {showEditProfile && <EditProfile />}
       {showEditContactInfo && <EditContactInfo />}
-      {status && <StatusPanel />}
     </>
   );
 };

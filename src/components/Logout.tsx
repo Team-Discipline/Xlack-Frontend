@@ -9,8 +9,6 @@ function Logout() {
       removeCookie();
       LogoutPost();
       window.location.href = `${xlackUrl}`;
-    } else {
-      console.log("로그아웃 취소");
     }
   };
   return <LogoutButton onClick={logoutFC}>LOGOUT</LogoutButton>;

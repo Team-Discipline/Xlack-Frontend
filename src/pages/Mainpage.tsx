@@ -147,8 +147,7 @@ const Mainpage = () => {
               .then(res => {
                 original_file_name = res.data.file;
                 file_id = res.data.id;
-                //author = res.data.uploaded_by.username;
-                file_name = (original_file_name || "").split("/").slice(-1).toString() + "/" + file_id.toString();
+                file_name = file.name + "/" + file_id.toString();
               });
             //dispatch(setFile(element));
             dispatch(setFileName(file_name));

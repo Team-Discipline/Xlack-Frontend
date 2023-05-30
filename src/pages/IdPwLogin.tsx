@@ -28,12 +28,10 @@ const IdPwLogin = () => {
             expires: new Date(),
             httpOnly: true,
           });
-          console.log(id + pw);
         } else {
           login_success = "fail";
         }
         window.location.href = `${xlackUrl}main`;
-        console.log(d);
       })
       .catch(error => {
         console.log(error);

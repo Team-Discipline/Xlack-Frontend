@@ -28,7 +28,6 @@ function SetupTeamName() {
         },
       )
       .then(() => {
-        // console.log(r);
         window.location.href = `${xlackUrl}main`;
       })
       .catch(err => console.log(err));

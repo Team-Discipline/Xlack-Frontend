@@ -10,7 +10,7 @@ function ChatContext(chat: ChatType) {
   const [changedChat, setchangedChat] = useState<string>("");
   const chatLength = 35;
   const [tmp, setTmp] = useState<number>(0);
-  const [size, setSize] = useState<number>(chat.message.length);
+  const [size, setSize] = useState<number>((chat.message || "").length);
   useEffect(() => {
     if (size !== 0 && chat.message.substring(tmp, tmp + chatLength) !== "") {
       setchangedChat(changedChat + chat.message.substring(tmp, tmp + chatLength) + "\n");

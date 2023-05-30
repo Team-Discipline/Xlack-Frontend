@@ -24,7 +24,6 @@ const Settings = () => {
     } catch (err) {
       window.alert("권한이 없습니다");
     }
-    console.log("delete!!");
   };
 
   return (

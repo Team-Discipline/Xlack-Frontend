@@ -21,9 +21,32 @@ function Channel(props: ChatChannelType) {
   return (
     <ChannelContainer>
       <OptionChannel>
-        # {props.name}__ {props.hashed_value} {"  "}
-        <div style={{ display: "inline-block", marginLeft: 60, background: "red", borderRadius: "50%", position: "relative", float: "right", alignItems: "center", textAlign: "center" }}>
-          {count && <div style={{ fontSize: 20, display: "inline-block", color: "white", height: "35px", width: "35px" }}>{count}</div>}
+        <span className="text-sm"># {props.name}</span>
+        <div
+          style={{
+            display: "inline-block",
+            marginLeft: 60,
+            background: "red",
+            borderRadius: "50%",
+            position: "relative",
+            float: "right",
+            alignItems: "center",
+            textAlign: "center",
+          }}
+        >
+          {count && (
+            <div
+              style={{
+                fontSize: 20,
+                display: "inline-block",
+                color: "white",
+                height: "35px",
+                width: "35px",
+              }}
+            >
+              {count}
+            </div>
+          )}
           {!count && <div style={{ fontSize: 20, display: "inline-block", color: "white" }}>{count}</div>}
         </div>
       </OptionChannel>

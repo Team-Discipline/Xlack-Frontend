@@ -1,10 +1,8 @@
 import styled from "styled-components";
 import React from "react";
-import { CreateWorkspace } from "../variable/createWorkspace";
-import { AccessToken } from "./Login";
 import LoginGithub from "react-login-github";
 import { useNavigate } from "react-router-dom";
-import { backUrl, local, xlackUrl } from "../variable/cookie";
+import { backUrl, xlackUrl } from "../variable/cookie";
 import axios from "axios";
 
 async function CreateW(code: string): Promise<JSON> {
@@ -33,7 +31,6 @@ function CreateNewWorkspace() {
     CreateW(response["code"]).then(res => {
       token_info = res;
       window.location.href = `${xlackUrl}setTeamName`;
-      //console.log(token_info);
     });
   };
   const onFailure = (response: any) => console.error(response);
@@ -108,6 +105,7 @@ const Header = styled.header`
   grid-template-columns: repeat(3, 1fr);
   padding: 48px 0 40px;
   width: 100%;
+
   .center-col {
     //align-items: center;
     text-align: center;
@@ -123,6 +121,7 @@ const Div2 = styled.div`
   max-width: 800px;
   width: 100%;
   box-sizing: inherit;
+
   .subHeader {
     color: #454245;
     font-size: 18px;
@@ -131,12 +130,14 @@ const Div2 = styled.div`
     max-width: 700px;
     text-align: center;
   }
+
   .input_form {
     max-width: 400px;
     width: 100%;
     position: relative;
     box-sizing: inherit;
   }
+
   .creator_signup_label {
     position: absolute;
     overflow: hidden;
@@ -148,6 +149,7 @@ const Div2 = styled.div`
     border: 0;
     user-select: none;
   }
+
   .creator_signup_form_input {
     position: relative;
     width: 86%;
@@ -158,6 +160,7 @@ const Div2 = styled.div`
     margin: 0 0 20px;
     padding-right: 40px !important;
   }
+
   .button {
     //display: inline-flex;
     margin-bottom: 20px;
@@ -171,6 +174,7 @@ const Div2 = styled.div`
     min-width: 96px;
     padding: 0 15px 3px;
   }
+
   .horizontal_content {
     margin-bottom: 24px;
     margin-top: 8px;
@@ -178,6 +182,7 @@ const Div2 = styled.div`
     display: flex;
     width: 100%;
   }
+
   .horizontal_content_left {
     flex-grow: 1;
     margin: 0;
@@ -185,9 +190,11 @@ const Div2 = styled.div`
     border-top: 1px solid #ddd;
     clear: both;
   }
+
   .horizontal_content_center {
     padding: 0 20px;
   }
+
   .horizontal_content_right {
     flex-grow: 1;
     margin: 0;

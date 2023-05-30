@@ -10,7 +10,7 @@ import Members from "./ChannelSetting_detail/Members";
 import Settings from "./ChannelSetting_detail/Settings";
 
 const onChange = (key: string) => {
-  console.log(key);
+  //console.log(key);
 };
 
 const items: TabsProps["items"] = [

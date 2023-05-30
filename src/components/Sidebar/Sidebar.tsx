@@ -9,7 +9,6 @@ import { RootState } from "../../app/store";
 import ChannelMenu from "../Channel/ChannelMenu";
 import { setClickedChannel, setClickedChannel_hv, setUnClickedChannel } from "../../variable/ClickedChannelSlice";
 import Channel from "../Channel/Channel";
-import Modal from "../Modal";
 import { CallClickedWorkSpace, rightClick_channel, SearchChannel } from "../../variable/WorkSpaceSlice";
 import { setClickBookmarkPage } from "../../variable/ChatBookmarkSlice";
 
@@ -48,7 +47,6 @@ function Sidebar() {
   useEffect(() => {
     // channelMenuRef 를 이용해 이외의 영역이 클릭되면 채널메뉴 없애기
     function handleClickOutside(e: MouseEvent): void {
-      console.log(channelMenuRef.current);
       if (channelMenuRef.current && !channelMenuRef.current.contains(e.target as Node)) {
         setshowChannelMenu(false);
       }

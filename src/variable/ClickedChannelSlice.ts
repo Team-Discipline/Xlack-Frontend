@@ -73,5 +73,5 @@ export const ClickedChannelSlice = createSlice({
   },
 });
 
-export const { setUnClickedChannel, setClickedChannel, setClickedChannel_hv, findUserDataInClickedChannel, ClickBookMark } = ClickedChannelSlice.actions;
+export const { setUnClickedChannel, setClickedChannel, setClickedChannel_hv, findUserDataInClickedChannel, ClickBookMark, saveReaction } = ClickedChannelSlice.actions;
 export default ClickedChannelSlice.reducer;
