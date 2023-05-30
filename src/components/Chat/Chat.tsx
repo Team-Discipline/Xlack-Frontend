@@ -163,7 +163,7 @@ const Chat = () => {
 
   const scrollToBottom = () => {
     messagesRef.current.scrollIntoView({
-      behavior: "smooth",
+      behavior: "instant",
       block: "end",
       inline: "nearest",
     });

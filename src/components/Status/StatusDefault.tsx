@@ -174,15 +174,15 @@ export default StatusDefault;
 const StyledPaper = styled(Paper)`
   & {
     background-color: white;
+    width: 500px;
     max-width: max-content;
-    width: 700px;
     border-radius: 10px;
     padding: 15px;
   }
 `;
 
 const StatusButton = styled.button`
-  width: 600px;
+  width: 500px;
   height: 40px;
   background-color: white;
   border: none;
@@ -203,14 +203,14 @@ const StatusDiv = styled.input`
   font-size: 20px;
 `;
 const StatusSelect = styled.select`
-  width: 600px;
+  width: 550px;
   height: 40px;
   font-size: 20px;
   color: grey;
   border: 1px solid lightgrey;
 `;
 const TimeSelect = styled.select`
-  width: 600px;
+  width: 550px;
   height: 40px;
   font-size: 20px;
   color: grey;

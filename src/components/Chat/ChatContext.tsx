@@ -1,24 +1,12 @@
 import styled from "styled-components";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import { ChatType } from "../../types/types";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ChatOption from "./ChatOption";
 import StarIcon from "@mui/icons-material/Star";
 
 function ChatContext(chat: ChatType) {
   const [showChatOption, setShowChatOption] = useState<boolean>(false);
-  const [changedChat, setchangedChat] = useState<string>("");
-  const chatLength = 35;
-  const [tmp, setTmp] = useState<number>(0);
-  const [size, setSize] = useState<number>((chat.message || "").length);
-  useEffect(() => {
-    if (size !== 0 && chat.message.substring(tmp, tmp + chatLength) !== "") {
-      setchangedChat(changedChat + chat.message.substring(tmp, tmp + chatLength) + "\n");
-      setTmp(tmp + chatLength);
-      setSize(size - chatLength);
-    }
-  }, [changedChat]);
-
   //일정 글자수가 넘어가면 줄바꿈 됨
   return (
     <div
@@ -48,7 +36,7 @@ function ChatContext(chat: ChatType) {
           </HeaderRight>
         </Header>
         <ChatMessages>
-          <h2>{changedChat}</h2>
+          <h2>{chat.message}</h2>
           <span className="text-sm text-gray-700">
             {/*{created_at.slice(0, 10)}&nbsp;{created_at.slice(11, 19)}*/}
             {chat.converted_created_at}

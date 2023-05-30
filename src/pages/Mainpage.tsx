@@ -35,7 +35,6 @@ const Mainpage = () => {
         });
         //데이터 받을 때 created_at 형태 바꿔줄 필요 있음
         dispatch(SaveChat([channel, res.data]));
-        console.log(res.data);
       } catch (err) {
         console.log("receiveChatError: ", err);
       }

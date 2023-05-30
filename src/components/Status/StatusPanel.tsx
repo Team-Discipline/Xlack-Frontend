@@ -76,9 +76,9 @@ const StyledPaper = styled(Paper)`
   & {
     background-color: white;
     max-width: max-content;
-    width: 700px;
+    width: 1000px;
     border-radius: 10px;
-    padding: 15px;
+    padding: 20px;
   }
 `;
 const Status = styled.span`
@@ -88,7 +88,7 @@ const Status = styled.span`
   color: black;
 `;
 const DefaultButton = styled.button`
-  width: 600px;
+  width: 700px;
   height: 40px;
   background-color: dodgerblue;
   margin-top: 10px;

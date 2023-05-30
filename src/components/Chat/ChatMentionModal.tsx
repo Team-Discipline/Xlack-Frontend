@@ -30,7 +30,7 @@ const ChatMentionModal = (props: MentionProps) => {
   return (
     <>
       <div className="text-left">
-        <div className="right-0 w-56 mt-2 origin-top-right bg-white rounded-md shadow-lg dark:bg-gray-800 ring-1 ring-black ring-opacity-5">
+        <div className="right-0 w-32 mt-2 origin-top-right bg-white rounded-md shadow-lg dark:bg-gray-800 ring-1 ring-black ring-opacity-5">
           <div className="py-1 " role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
             {callingMentionArr &&
               callingMentionArr.map((v, i) => {

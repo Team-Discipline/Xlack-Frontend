@@ -722,7 +722,9 @@ video {
 .w-56 {
   width: 14rem;
 }
-
+.w-32 {
+  width: 8rem;
+}
 .w-qua {
   width: 40vw;
 }
