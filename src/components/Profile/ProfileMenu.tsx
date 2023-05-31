@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { EditProfileOnOff, NotificationSettingOnOff } from "../../variable/OnModalSlice";
 import MyState from "./MyState";
 import { RootState } from "../../app/store";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import StatusPanel from "../Status/StatusPanel";
 
 const ProfileMenu = () => {
@@ -11,7 +11,6 @@ const ProfileMenu = () => {
   const dispatch = useDispatch();
   const MyStatus = useSelector((state: RootState) => state.setStatus.statusData);
   const MyUser = useSelector((state: RootState) => state.getMyProfile.userData);
-  const [status, showStatus] = useState(false);
 
   useEffect(() => {
     console.log(isOff);
@@ -36,14 +35,10 @@ const ProfileMenu = () => {
                 </span>
               </a>
               <a className="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600" role="menuitem">
-                <span className="flex flex-col">
-                  <Status>
-                    {MyStatus.status_icon} {JSON.stringify(new Date(MyStatus.until))}
-                  </Status>
-                </span>
+                <span className="flex flex-col">{MyStatus.status_icon ? <Status>{MyStatus.status_icon + MyStatus.until}</Status> : <Status>🙂What is your Status</Status>}</span>
               </a>
               <a className="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600" role="menuitem">
-                <span className="flex flex-col">
+                <span className="flex flex-col cursor-pointer">
                   <span
                     onClick={() => {
                       dispatch(NotificationSettingOnOff());
@@ -71,16 +66,6 @@ const ProfileMenu = () => {
                   </Op>
                 </span>
               </a>
-              <a className="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600" role="menuitem">
-                <span className="flex flex-col">
-                  <span>다운로드</span>
-                </span>
-              </a>
-              <a className="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600" role="menuitem">
-                <span className="flex flex-col">
-                  <span>''에서 로그아웃</span>
-                </span>
-              </a>
             </div>
           </div>
         </div>
@@ -99,4 +84,6 @@ const Status = styled.span`
   border-radius: 10px;
   background-color: white;
   color: black;
+  font-size: 13px;
+  padding: 5px;
 `;

@@ -1,17 +1,16 @@
 import styled from "styled-components";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
-import { ChatType, ReactionDataType } from "../../types/types";
-import React, { useEffect, useState } from "react";
+import { ChatType } from "../../types/types";
+import React, { useState } from "react";
 import ChatOption from "./ChatOption";
 import StarIcon from "@mui/icons-material/Star";
-import { findUserDataInClickedChannel } from "../../variable/ClickedChannelSlice";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 
 function ChatContext(chat: ChatType) {
   const [showChatOption, setShowChatOption] = useState<boolean>(false);
   const [isHover, setHover] = useState<boolean>(false);
-
+  const reactorData = useSelector((state: RootState) => state.ClickedChannel.findUserData);
   return (
     <div
       onMouseOver={() => {
@@ -47,21 +46,19 @@ function ChatContext(chat: ChatType) {
           </span>
         </ChatMessages>
         <div>
-          {chat.reactions &&
-            chat.reactions.map(item => (
+          {chat.reaction &&
+            chat.reaction.map(item => (
               <ReactionContainer
-                key={chat.id}
+                key={item.id}
                 onMouseOver={() => {
                   setHover(true);
                 }}
-                onMouseDown={() => {
+                onMouseLeave={() => {
                   setHover(false);
                 }}
               >
                 {item.icon}
                 {item.reactors.length}
-                {/*{isHover ? reactorData.display_name : ""}*/}
-                {isHover ? "reactor" : ""}
               </ReactionContainer>
             ))}
         </div>
@@ -132,8 +129,9 @@ const ReactionContainer = styled.span`
   margin-left: 15px;
   border-radius: 10px;
   color: rgba(51, 51, 51, 0.86);
-  :hover {
-    text-align: left;
-    width: 100px;
-  }
+  //:hover {
+  //  text-align: left;
+  //  width: 100px;
+  //  margin-left: 15px;
+  //}
 `;

@@ -85,7 +85,7 @@ const ChatOption = (chat: ChatType) => {
   };
 
   function ReactionLogic(clickedIcon: string, cid: number) {
-    if ((chat.reactions || "").length === 0) {
+    if ((chat.reaction || "").length === 0) {
       //리액션이 없을때 새로운 리액션을 추가
       sendReaction({ mode: "create", icon: clickedIcon, chat_id: cid });
     } else {

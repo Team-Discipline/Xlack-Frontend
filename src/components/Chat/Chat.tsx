@@ -3,12 +3,11 @@ import styled from "styled-components";
 import ChatInput from "./ChatInput";
 import { RootState } from "../../app/store";
 import { useDispatch, useSelector } from "react-redux";
-  import { ChatType, SocketReceiveChatType } from "../../types/types";
+import { ChatType, SocketReceiveChatType } from "../../types/types";
 import { at, backUrl, WsUrl_notification } from "../../variable/cookie";
 import axios from "axios";
 import ChatContext from "./ChatContext";
 import { AppendChat } from "../../variable/WorkSpaceSlice";
-import WaitPage from "../../pages/WaitPage";
 import { deleteChannel } from "../../variable/UnreadChannelSlice";
 
 const Chat = () => {
@@ -47,7 +46,7 @@ const Chat = () => {
           message: r.message,
           created_at: r.created_at,
           converted_created_at: r.converted_created_at,
-          reactions: r.reaction,
+          reaction: r.reaction,
           file: r.file,
         });
       });
@@ -136,7 +135,7 @@ const Chat = () => {
       channel: Clicked_channel.id,
       chatter: findUser,
       has_bookmarked: false,
-      reactions: [],
+      reaction: s.reaction,
       message: s.message,
       created_at: s.created_at,
       converted_created_at: s.created_at,
@@ -187,7 +186,6 @@ const Chat = () => {
                   </span>
                 );
               })}
-          {!getChatData && <WaitPage />}
         </ChatMessages>
         <ChatInput
           receive={(ch_hv: string, input: SocketReceiveChatType) => {

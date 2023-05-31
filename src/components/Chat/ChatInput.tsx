@@ -125,15 +125,7 @@ const ChatInput = (props: ChatInputProps) => {
       };
     });
   }, [notifi]);
-  useEffect(() => {
-    if (socket) {
-      socket.send(
-        JSON.stringify({
-          message: File_name,
-        }),
-      );
-    }
-  }, [File_name]);
+
   const sendMessage = (event: { preventDefault: () => void }) => {
     event.preventDefault();
     if (socket && msg !== "" && msg.length < MaxMsgSize) {

@@ -106,8 +106,6 @@ const Profile = () => {
                     <div>{new Date().toLocaleTimeString()}</div>
                     <div className="flex justify-center mt-2 ">
                       <StatusPanel />
-                      <CustomButton>View as</CustomButton>
-                      <CustomButton> ...</CustomButton>
                     </div>
                     <hr />
                     <div>

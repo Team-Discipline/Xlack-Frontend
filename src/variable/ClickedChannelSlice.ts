@@ -62,10 +62,10 @@ export const ClickedChannelSlice = createSlice({
       state.channelData.Chats.forEach(c => {
         if (Number(c.id) === reaction.chat_id) {
           if (reaction.reactors?.length) {
-            c.reactions = (c.reactions || []).filter(r => r.icon !== reaction.icon);
-            c.reactions.push(reaction);
+            c.reaction = (c.reaction || []).filter(r => r.icon !== reaction.icon);
+            c.reaction.push(reaction);
           } else {
-            c.reactions = (c.reactions || []).filter(r => r.icon !== reaction.icon);
+            c.reaction = (c.reaction || []).filter(r => r.icon !== reaction.icon);
           }
         }
       });

@@ -99,15 +99,6 @@ const Mainpage = () => {
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
   }, [isOpenModal]);
-
-  // 이미지 파일 처리 input
-  const onInputFile = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    handleFiles(e.target.files);
-  };
-
   // 파일 처리 ondrop
   const onDropFiles = (e: DragEvent<HTMLDivElement>) => {
     console.log({ e }, e.dataTransfer.files);
@@ -159,12 +150,7 @@ const Mainpage = () => {
       }
     }
   };
-  // useEffect(() => {
-  //   if (file_name) {
-  //     dispatch(setFileName(file_name));
-  //   }
-  // });
-  // 없으면 drop 작동안됨
+
   const dragOver = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
   };

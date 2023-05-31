@@ -11,36 +11,29 @@ import { Paper } from "@material-ui/core";
 import { setStatus } from "../../variable/StatusSlices";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
-import { AtVerify, WsUrl_status } from "../../variable/cookie";
+import { WsUrl_status } from "../../variable/cookie";
 import { at } from "../../variable/cookie";
-
-// import EmojiPicker from "emoji-picker-react";
 
 const StatusDefault = () => {
   const MyStatus = useSelector((state: RootState) => state.setStatus.statusData);
-  const formData = new FormData();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [openStatus, SetopenStatus] = useState(false);
-  const [message, setMessage] = useState(MyStatus.status_message);
-  const [time, setTime] = useState(MyStatus.until);
-  const [emoji, setEmoji] = useState(MyStatus.status_icon);
+  const [message, setMessage] = useState<string>("");
+  const [time, setTime] = useState<string>("");
+  const [emoji, setEmoji] = useState<string>("");
+  const [clickOption, setClickOption] = useState<string>("");
   const workspaceHV = useSelector((state: RootState) => state.getMyWorkSpace.ClickedWorkSpace).hashed_value;
   const Options = [];
   const Times = [];
   const options = ["📆 In a meeting", "🚗 Communicating", "🤒 Sick", "🌴 Vacationing", "🖥️ Working remotely"];
   const times = ["10 minutes", "30 minutes", "1 hour", "2 hours", "3 hours", "4 hours", "6 hours", "Today"];
-  const [statusSocket, setStatusSocket] = useState<WebSocket>();
 
-  const sendStatus = (event: { preventDefault: () => void }) => {
+  const sendStatus = () => {
     setOpen(false);
-    event.preventDefault();
     const statusWS = new WebSocket(`${WsUrl_status}${workspaceHV}/`);
-    dispatch(setStatus({ status_message: message, status_icon: emoji, until: time }));
-
     if (statusWS) {
       statusWS.onopen = async () => {
-        setStatusSocket(statusWS);
         statusWS.send(
           JSON.stringify({
             authorization: at,
@@ -53,45 +46,35 @@ const StatusDefault = () => {
             until: new Date(time).toString(),
           }),
         );
-        statusWS.onmessage = res => {
-          const data = res.data;
-          console.log(data);
-        };
       };
     }
   };
-  const handleOnChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    formData.append("status_message", message);
-    setMessage(e.target.value);
-    setEmoji(e.target.value.slice(0, 2));
-  }, []);
 
-  const convertTime = (time: string) => {
-    const now = new Date();
-    let numTime: string;
-    const splitTime = Number(time.split(" ")[0]);
-    let convertedTime: number;
-    if (isNaN(splitTime)) {
-      numTime = now.setHours(now.getHours() + 24).toString();
-      convertedTime = Number(numTime);
-    } else if (splitTime >= 10) {
-      numTime = now.setMinutes(now.getMinutes() + splitTime).toString();
-      convertedTime = Number(new Date(numTime));
-    } else {
-      numTime = splitTime.toString();
-      convertedTime = now.setHours(now.getHours() + Number(numTime));
-    }
-    console.log(new Date(convertedTime));
-    console.log(time);
-    return convertedTime;
-  };
+  const handleOnChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+    const em = e.target.value.slice(0, 2);
+    setMessage(e.target.value.toString().replace(em, ""));
+    setEmoji(em);
+  }, []);
 
   const handleOnChange_T = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    formData.append("until", time);
-    setTime(convertTime(e.target.value).toString());
-    console.log(convertTime(e.target.value).toString());
-    console.log(time);
+    convertTime(e.target.value.toString());
   }, []);
+
+  const convertTime = (inputTime: string) => {
+    const now = new Date();
+    let numTime: string;
+    const splitTime = Number(inputTime.split(" ")[0]);
+    let convertedTime: number;
+    if (isNaN(splitTime)) {
+      convertedTime = now.setTime(now.getTime() + 1000 * 60 * 60 * 24);
+    } else if (splitTime >= 10) {
+      convertedTime = now.setTime(now.getTime() + 1000 * 60 * splitTime);
+    } else {
+      numTime = splitTime.toString();
+      convertedTime = now.setTime(now.getTime() + 1000 * 60 * 60 * Number(numTime));
+    }
+    setTime(new Date(convertedTime).toString().split("(")[0].split("GMT")[0]);
+  };
 
   for (const element of options) {
     Options.push(<option>{element}</option>);
@@ -106,6 +89,7 @@ const StatusDefault = () => {
       key={op}
       onClick={() => {
         setOpen(true);
+        setClickOption(op);
       }}
     >
       {op}
@@ -123,7 +107,7 @@ const StatusDefault = () => {
       </button>
       <StatusDiv
         placeholder={"🙂What is your Status"}
-        value={message}
+        defaultValue={MyStatus.status_icon + MyStatus.status_message}
         onClick={() => {
           setOpen(true);
         }}
@@ -131,6 +115,14 @@ const StatusDefault = () => {
       <DialogContentText>until {time}</DialogContentText>
       <DialogContentText>{" For new slack channel for test : "}</DialogContentText>
       {StatusbtnMap}
+      <hr />
+      <StatusButton
+        onClick={() => {
+          dispatch(setStatus({ status_icon: "", status_message: "", until: "" }));
+        }}
+      >
+        ❌ Erase Status
+      </StatusButton>
       <Dialog
         disableEnforceFocus
         fullWidth={true}
@@ -144,12 +136,12 @@ const StatusDefault = () => {
         <DialogContent>
           <DialogContentText>Manual</DialogContentText>
         </DialogContent>
-        <StatusSelect id="status" defaultValue={message} onChange={handleOnChange}>
+        <StatusSelect id="status" defaultValue={clickOption} onChange={handleOnChange}>
           {OptionMap}
         </StatusSelect>
         <br />
         <DialogContentText>{"Remove status after ..."}</DialogContentText>
-        <TimeSelect id="time" defaultValue={time} onChange={handleOnChange_T}>
+        <TimeSelect id="time" defaultValue={MyStatus.until} onChange={handleOnChange_T}>
           {TimeMap}
         </TimeSelect>
         <DialogActions>
@@ -163,7 +155,15 @@ const StatusDefault = () => {
           >
             Close
           </Button>
-          <Button onClick={sendStatus} variant="contained" color="success" autoFocus>
+          <Button
+            onClick={() => {
+              sendStatus();
+              dispatch(setStatus({ status_message: message, status_icon: emoji, until: time }));
+            }}
+            variant="contained"
+            color="success"
+            autoFocus
+          >
             Save
           </Button>
         </DialogActions>

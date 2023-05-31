@@ -30,6 +30,7 @@ function ReactionListener() {
         dispatch(
           UpdateReactionChatType2({
             channel_hashed_value: chat_channel_hashed_value,
+            id: reactionData.id,
             chat_id: reactionData.chat_id,
             icon: reactionData.icon,
             reactors: reactionData.reactors,
@@ -38,6 +39,7 @@ function ReactionListener() {
         dispatch(
           saveReaction({
             channel_hashed_value: chat_channel_hashed_value,
+            id: reactionData.id,
             chat_id: reactionData.chat_id,
             icon: reactionData.icon,
             reactors: reactionData.reactors,
