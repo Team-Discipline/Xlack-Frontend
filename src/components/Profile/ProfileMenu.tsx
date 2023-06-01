@@ -4,7 +4,6 @@ import { EditProfileOnOff, NotificationSettingOnOff } from "../../variable/OnMod
 import MyState from "./MyState";
 import { RootState } from "../../app/store";
 import { useEffect } from "react";
-import StatusPanel from "../Status/StatusPanel";
 
 const ProfileMenu = () => {
   const isOff = useSelector((state: RootState) => state.OnModal.OnNotification);

@@ -99,6 +99,7 @@ const Mainpage = () => {
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
   }, [isOpenModal]);
+
   // 파일 처리 ondrop
   const onDropFiles = (e: DragEvent<HTMLDivElement>) => {
     console.log({ e }, e.dataTransfer.files);
@@ -154,17 +155,7 @@ const Mainpage = () => {
   const dragOver = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
   };
-  // useEffect(() => {
-  //   if (Notification.permission !== "granted") {
-  //     Notification.requestPermission().then(permission => {
-  //       if (permission === "granted") {
-  //         Notifi();
-  //       } else {
-  //         window.alert("알림 권한을 설정해주세요");
-  //       }
-  //     });
-  //   }
-  // }, []);
+
   return (
     <>
       <AppBody onDrop={onDropFiles} onDragOver={dragOver}>

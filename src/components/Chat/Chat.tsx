@@ -11,12 +11,10 @@ import { AppendChat } from "../../variable/WorkSpaceSlice";
 import { deleteChannel } from "../../variable/UnreadChannelSlice";
 
 const Chat = () => {
-  const notifi = useSelector((state: RootState) => state.UnReadChannel);
   const Clicked_channel = useSelector((state: RootState) => state.ClickedChannel.channelData);
   const Clicked_channel_hashedValue = useSelector((state: RootState) => state.ClickedChannel.channelData.hashed_value);
   const findUser = useSelector((state: RootState) => state.ClickedChannel.findUserData);
   const ClickedBookmark = useSelector((state: RootState) => state.ChatBookmark.ClickBookmark);
-  const MyWorkspace = useSelector((state: RootState) => state.getMyWorkSpace.MyWorkSpace);
   const currentWorkspace = useSelector((state: RootState) => state.getMyWorkSpace.ClickedWorkSpace);
   const UpdateChannel = useSelector((state: RootState) => state.UpdateChannel);
   const UpdateBookmark = useSelector((state: RootState) => state.ChatBookmark.UpdateBookmark);
@@ -114,12 +112,7 @@ const Chat = () => {
     };
     setSocket(webSocket);
   }, [Clicked_channel_hashedValue]);
-  // useEffect(() => {
-  //   if (lastChat !== "-1") {
-  //     //웹소켓으로 받는 데이터로 Chat을 만들어 getChatData에 추가시키기
-  //     setGetChatData([MakeChatDataFromLastChat(lastChat), ...getChatData]);
-  //   }
-  // }, [lastChat]);
+
   useEffect(() => {
     if (ClickedBookmark) {
       receiveChatBookmarkData();
@@ -176,7 +169,7 @@ const Chat = () => {
       <>
         <ChatMessages ref={messagesRef}>
           {getChatData &&
-            getChatData
+            (getChatData || [])
               .slice(0)
               .reverse()
               .map((chat, i) => {

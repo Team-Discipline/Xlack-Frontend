@@ -25,7 +25,6 @@ function ReactionListener() {
     socket.onmessage = res => {
       const data = JSON.parse(res.data);
       const reactionData = data?.reaction;
-      console.log(data);
       if (reactionData) {
         dispatch(
           UpdateReactionChatType2({
@@ -46,7 +45,6 @@ function ReactionListener() {
           }),
         );
         dispatch(findUserDataInClickedChannel(reactionData.reactors[Number(reactionData.reactors.length)]));
-        console.log(JSON.stringify(reactionData.reactors[0]));
       }
     };
   }

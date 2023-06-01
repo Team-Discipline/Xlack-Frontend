@@ -2,11 +2,8 @@ import styled from "styled-components";
 import { useState } from "react";
 import axios from "axios";
 import { backUrl, setCookie, xlackUrl } from "../variable/cookie";
-import { useNavigate } from "react-router-dom";
 
 const IdPwLogin = () => {
-  const navigate = useNavigate();
-
   let login_success = "";
   const [id, setId] = useState<string>("");
   const [pw, setPw] = useState<string>("");

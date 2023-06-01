@@ -102,7 +102,6 @@ const ChatInput = (props: ChatInputProps) => {
       socket.send(
         JSON.stringify({
           message: File_name,
-          //file: File,
         }),
       );
       window.alert("file 전송 성공");
